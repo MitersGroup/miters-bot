@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    // Type Checking
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // Modules
+    "allowArbitraryExtensions": true,
+    "module": "ES2022",
+    "moduleResolution": "node",
+
+    // Emit
+    "preserveConstEnums": true,
+    "sourceMap": true
+  },
+  "include": ["**/*.ts"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "files": true
+  }
+}
