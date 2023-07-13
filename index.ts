@@ -1,10 +1,15 @@
-import { Client, Events, GatewayIntentBits } from "discord.js";
 import "dotenv/config";
+import {Client, Events, GatewayIntentBits} from "discord.js";
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({"intents": [GatewayIntentBits.Guilds]});
 
-client.once(Events.ClientReady, c => {
-	console.log(`Ready! Logged in as ${c.user.tag}`);
-});
+client.once(
+    Events.ClientReady,
+    (onReadyClient) => {
 
-client.login(process.env.DISCORD_TOKEN);
+        console.log(`Ready! Logged in as ${onReadyClient.user.tag}`);
+
+    }
+);
+
+void client.login(process.env.DISCORD_TOKEN);
