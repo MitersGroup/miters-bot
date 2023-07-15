@@ -1,36 +1,40 @@
 {
-	"name": "miters",
-	"version": "1.0.0",
-	"description": "An open source Discord bot for doing everything. The name \"Miters\" stands for \"Malaysian IT-ers\"",
-	"main": "index.ts",
-	"type": "module",
-	"scripts": {
-		"live": "npx ts-node index.ts",
-		"lint": "npx eslint .",
-		"lint-fix": "npx eslint . --fix"
-	},
-	"keywords": [
-		"dicord",
-		"bot",
-		"Malaysia",
-		"management"
-	],
-	"author": {
-		"name": "Ng Say Peng",
-		"email": "yyueniao0913@gmail.com",
-		"url": "https://www.linkedin.com/in/say-peng-ng-304b00225/"
-	},
-	"license": "ISC",
-	"dependencies": {
-		"discord.js": "14.11.0",
-		"dotenv": "16.3.1",
-		"ts-node": "10.9.1"
-	},
-	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "6.0.0",
-		"@typescript-eslint/parser": "6.0.0",
-		"eslint": "8.45.0",
-		"eslint-plugin-import": "2.27.5",
-		"typescript": "5.1.6"
-	}
+  "name": "miters",
+  "version": "1.0.0",
+  "description": "An open source Discord bot for doing everything. The name \"Miters\" stands for \"Malaysian IT-ers\"",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "live": "npx ts-node index.ts",
+    "lint": "npx eslint .",
+    "lint-fix": "npx eslint . --fix",
+    "format": "npx prettier . --check",
+    "format-fix": "npx prettier . --write"
+  },
+  "keywords": [
+    "dicord",
+    "bot",
+    "Malaysia",
+    "management"
+  ],
+  "author": {
+    "name": "Ng Say Peng",
+    "email": "yyueniao0913@gmail.com",
+    "url": "https://www.linkedin.com/in/say-peng-ng-304b00225/"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "14.11.0",
+    "dotenv": "16.3.1",
+    "ts-node": "10.9.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "6.0.0",
+    "@typescript-eslint/parser": "6.0.0",
+    "eslint": "8.45.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-plugin-import": "2.27.5",
+    "prettier": "3.0.0",
+    "typescript": "5.1.6"
+  }
 }
