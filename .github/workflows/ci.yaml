@@ -10,8 +10,17 @@ jobs:
   lint-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.2.0
+      - uses: actions/checkout@v3.5.3
       - name: Install Dependencies
         run: npm install
-      - name: ESLint Check
+      - name: Lint Check
         run: npm run lint
+
+  format-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.5.3
+      - name: Install Dependencies
+        run: npm install
+      - name: Format Check
+        run: npm run format
