@@ -13,13 +13,14 @@ interface Command {
   execute: (client: Client, interaction: CommandInteraction) => Promise<void>;
 }
 
-export const commands: Command[] = [ping];
+export const testingCommands: Command[] = [ping];
+export const productionCommands: Command[] = [];
 
 const handleCommand = async (
   client: Client,
   interaction: ChatInputCommandInteraction,
 ): Promise<void> => {
-  const commandExecuting = commands.find(
+  const commandExecuting = [...productionCommands, ...testingCommands].find(
     (command) => command.name === interaction.commandName,
   );
 
@@ -47,8 +48,12 @@ const handleCommand = async (
 };
 
 export const registerCommands = (client: Client<true>): void => {
-  client.on(Events.ClientReady, async (onReadyClient: Client<true>) => {
-    await onReadyClient.application.commands.set(commands);
+  client.once(Events.ClientReady, async (onReadyClient: Client<true>) => {
+    await onReadyClient.application.commands.set(productionCommands);
+    await onReadyClient.application.commands.set(
+      testingCommands,
+      process.env.TESTING_GUILD_ID,
+    );
   });
 
   client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
