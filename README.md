@@ -63,15 +63,3 @@ We welcome contributions to the Miters Discord bot project! Whether you're an ex
 - **Documentation**: You can improve the project's documentation, including this README, by submitting pull requests with your updates.
 
 We value and appreciate all contributions, big or small!
-
-## License
-
-The Miters Discord bot is open-source software licensed under the [ISC License](LICENSE).
-
-## Contact
-
-If you have any questions, suggestions, or need support, feel free to reach out to the author:
-
-- Name: Ng Say Peng
-- Email: yyueniao0913@gmail.com
-- LinkedIn: [Say Peng Ng](https://www.linkedin.com/in/say-peng-ng-304b00225/)
