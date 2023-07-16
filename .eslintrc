@@ -31,6 +31,17 @@
     // https://eslint.org/docs/latest/rules/no-console
     "no-console": "off",
 
+    // In ES6, make variable declaration in one line doesn't make sense. At
+    // opposite, we should avoid it.
+    // https://eslint.org/docs/latest/rules/one-var
+    "one-var": [
+      "error",
+      {
+        "let": "never",
+        "const": "never"
+      }
+    ],
+
     // https://eslint.org/docs/latest/rules/no-void
     "no-void": [
       "error",
