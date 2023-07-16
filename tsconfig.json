@@ -20,7 +20,10 @@
 
     // Emit
     "preserveConstEnums": true,
-    "sourceMap": true
+    "sourceMap": true,
+
+    // Interop Constraints
+    "allowSyntheticDefaultImports": true
   },
   "include": ["**/*.ts"],
   "ts-node": {
