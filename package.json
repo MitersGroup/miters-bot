@@ -12,7 +12,7 @@
     "format-fix": "npx prettier . --write"
   },
   "keywords": [
-    "dicord",
+    "discord",
     "bot",
     "Malaysia",
     "management"
