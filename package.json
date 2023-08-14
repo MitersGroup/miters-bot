@@ -31,7 +31,6 @@
     "ts-node": "10.9.1"
   },
   "devDependencies": {
-    "@oysterlee/eslint-config-ts": "^0.4.2",
     "@typescript-eslint/eslint-plugin": "6.0.0",
     "@typescript-eslint/parser": "6.0.0",
     "eslint": "8.45.0",
