@@ -1,7 +1,7 @@
 import { handlerFileFilter, handlerRoot } from "./constant";
 import { BotEvent } from "../../types/utils";
 import { Client } from "discord.js";
-import { importFiles } from "../../utils/files-import";
+import { importFiles } from "../../utils/filesImport";
 
 export default async function registerBotEvents(client: Client) {
   const commands = await importFiles<BotEvent>({
