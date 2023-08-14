@@ -3,8 +3,8 @@ import {
   CommandInteraction,
   EmbedBuilder,
   SlashCommandBuilder,
-} from 'discord.js';
-import ANONY_CONSTANTS from '../constants/anony';
+} from "discord.js";
+import ANONY_CONSTANTS from "../constants/anony";
 
 export const anonyCommand = {
   data: new SlashCommandBuilder()
@@ -33,7 +33,7 @@ export const anonyCommand = {
           `(#${new Date().getTime()}) ${
             interaction.options.data.find(
               (data) => data.name === ANONY_CONSTANTS.subCommandTitleName,
-            )?.value ?? 'Untitled'
+            )?.value ?? "Untitled"
           }`,
         )
         .setAuthor({
@@ -45,7 +45,7 @@ export const anonyCommand = {
           value:
             (interaction.options.data.find(
               (data) => data.name === ANONY_CONSTANTS.subCommandMessageName,
-            )?.value as string) || 'No content',
+            )?.value as string) || "No content",
         });
       const message = await channel.send({ embeds: [embed] });
       await message.react(ANONY_CONSTANTS.approveEmoji);

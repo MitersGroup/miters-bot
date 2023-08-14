@@ -1,5 +1,5 @@
 const PING_CONSTANTS = {
-  pong: 'Pong!',
+  pong: "Pong!",
   description: 'Test command. Will reply with "Pong!".',
 } as const;
 

@@ -1,5 +1,5 @@
-import { Client } from 'discord.js';
-import reactionAddEvent from './reactionAdd';
+import { Client } from "discord.js";
+import reactionAddEvent from "./reactionAdd";
 
 interface Event {
   name: string;
