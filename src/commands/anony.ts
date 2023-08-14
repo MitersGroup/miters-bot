@@ -27,7 +27,7 @@ export const anonyCommand = {
     const channel = client.channels.cache.get(
       process.env.ANONYMOUS_APPROVAL_CHANNEL_ID,
     );
-    if (channel?.isTextBased) {
+    if (channel?.isTextBased()) {
       const embed = new EmbedBuilder()
         .setColor(ANONY_CONSTANTS.defaultColorCode)
         .setTitle(
@@ -48,7 +48,7 @@ export const anonyCommand = {
               (v) => v.name === ANONY_CONSTANTS.subCommandMessageName,
             )?.value as string) || 'No content',
         });
-      const message = await (channel as TextChannel).send({ embeds: [embed] });
+      const message = await channel.send({ embeds: [embed] });
       await message.react(ANONY_CONSTANTS.approveEmoji);
       await message.react(ANONY_CONSTANTS.rejectEmoji);
     }
