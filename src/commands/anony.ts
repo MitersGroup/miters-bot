@@ -3,7 +3,6 @@ import {
   CommandInteraction,
   EmbedBuilder,
   SlashCommandBuilder,
-  TextChannel,
 } from 'discord.js';
 import ANONY_CONSTANTS from '../constants/anony';
 
