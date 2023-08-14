@@ -29,7 +29,9 @@ const reactionAddEvent = {
     )
       return;
     if (reaction.message.embeds.length !== 1) return;
-    if (reaction.message.embeds[0].fields.length === 2) return; // Because reacted submission will have one extra field which is approved or rejected
+
+    // Because reacted submission will have different color code
+    if (reaction.message.embeds[0].color !== ANONY_CONSTANTS.defaultColorCode) return;
 
     if (reaction.emoji.name === ANONY_CONSTANTS.approveEmoji) {
       await reaction.message.reactions.removeAll();
