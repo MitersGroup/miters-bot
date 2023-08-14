@@ -32,8 +32,8 @@ export const anonyCommand = {
         .setTitle(
           `(#${new Date().getTime()}) ${
             interaction.options.data.find(
-              (v) => v.name === ANONY_CONSTANTS.subCommandTitleName,
-            )?.value || 'Untitled'
+              (data) => data.name === ANONY_CONSTANTS.subCommandTitleName,
+            )?.value ?? 'Untitled'
           }`,
         )
         .setAuthor({
@@ -44,7 +44,7 @@ export const anonyCommand = {
           name: ANONY_CONSTANTS.contentLabel,
           value:
             (interaction.options.data.find(
-              (v) => v.name === ANONY_CONSTANTS.subCommandMessageName,
+              (data) => data.name === ANONY_CONSTANTS.subCommandMessageName,
             )?.value as string) || 'No content',
         });
       const message = await channel.send({ embeds: [embed] });
