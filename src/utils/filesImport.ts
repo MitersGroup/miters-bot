@@ -1,8 +1,7 @@
-import readdirp, { EntryInfo, ReaddirpOptions } from "readdirp";
+import readdirp, { EntryInfo } from "readdirp";
 
 interface IImportFiles {
   path: string;
-  options: ReaddirpOptions;
 }
 
 interface IReturn<T> {
@@ -11,12 +10,13 @@ interface IReturn<T> {
 }
 
 export const importFiles = async <T>({
-  options,
   path,
 }: IImportFiles): Promise<IReturn<T>[]> => {
   const files: Promise<IReturn<T>>[] = [];
   return new Promise((resolve) => {
-    readdirp(path, options)
+    readdirp(`./src/${path}`, {
+      fileFilter: ["*.ts"],
+    })
       .on("data", (entry: EntryInfo) => {
         files.push(
           new Promise((resolveImport) => {

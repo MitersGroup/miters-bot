@@ -1,14 +1,20 @@
-import { handlerFileFilter, handlerRoot } from "./constant";
+import { PrefixCommand, SlashCommand } from "../../types/utils";
 import { Client } from "discord.js";
-import { SlashCommand } from "../../types/utils";
 import { importFiles } from "../../utils/filesImport";
 
+const loadPrefixCommands = async (client: Client) => {
+  const commands = await importFiles<PrefixCommand>({
+    path: `commands/prefix`,
+  });
+  console.log(`Loaded (${commands.length}) prefix commands`);
+  commands.forEach(({ data }) => {
+    if (!data.name) return;
+    client.prefixCommands.set(data.name, data);
+  });
+};
 const loadSlashCommands = async (client: Client) => {
   const commands = await importFiles<SlashCommand>({
-    path: `./${handlerRoot}/commands/slash`,
-    options: {
-      fileFilter: [handlerFileFilter, "!*.type.ts", "!constant.ts"],
-    },
+    path: `commands/slash`,
   });
   console.log(`Loaded (${commands.length}) slash commands`);
   commands.forEach(({ data }) => {
@@ -26,5 +32,5 @@ const loadSlashCommands = async (client: Client) => {
 };
 
 export default function registerCommands(client: Client) {
-  return Promise.all([loadSlashCommands(client)]);
+  return Promise.all([loadSlashCommands(client), loadPrefixCommands(client)]);
 }

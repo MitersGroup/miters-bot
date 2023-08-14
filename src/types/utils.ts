@@ -2,6 +2,7 @@ import {
   ChatInputCommandInteraction,
   Client,
   ClientEvents,
+  Message,
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "discord.js";
@@ -9,7 +10,6 @@ import {
 interface SlashCommandBase {
   name: string;
   description: string;
-  production: boolean;
   execute: (
     client: Client,
     interaction: ChatInputCommandInteraction,
@@ -44,4 +44,14 @@ export interface BotEvent {
   once: boolean;
   eventName: keyof ClientEvents;
   execute: (client: Client<true>, ...args: unknown[]) => Promise<void>;
+}
+
+export interface PrefixCommand {
+  name: string;
+  commands: string[];
+  execute: (
+    client: Client<true>,
+    message: Message,
+    args: string[],
+  ) => void | Promise<void>;
 }
