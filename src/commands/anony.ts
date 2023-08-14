@@ -49,8 +49,8 @@ export const anonyCommand = {
             )?.value as string) || 'No content',
         });
       const message = await (channel as TextChannel).send({ embeds: [embed] });
-      await message.react('✅');
-      await message.react('❎');
+      await message.react(ANONY_CONSTANTS.approveEmoji);
+      await message.react(ANONY_CONSTANTS.rejectEmoji);
     }
   },
 };

@@ -31,7 +31,7 @@ const reactionAddEvent = {
     if (reaction.message.embeds.length !== 1) return;
     if (reaction.message.embeds[0].fields.length === 2) return; // Because reacted submission will have one extra field which is approved or rejected
 
-    if (reaction.emoji.name === '✅') {
+    if (reaction.emoji.name === ANONY_CONSTANTS.approveEmoji) {
       await reaction.message.reactions.removeAll();
       const embed = new EmbedBuilder()
         .setColor(ANONY_CONSTANTS.approvedColorCode)
@@ -57,7 +57,7 @@ const reactionAddEvent = {
           },
         });
       }
-    } else if (reaction.emoji.name === '❎') {
+    } else if (reaction.emoji.name === ANONY_CONSTANTS.rejectEmoji) {
       await reaction.message.reactions.removeAll();
       const embed = new EmbedBuilder()
         .setColor(ANONY_CONSTANTS.rejectedColorCode)
