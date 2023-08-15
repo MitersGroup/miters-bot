@@ -3,22 +3,37 @@ import { PrefixCommand, SlashCommand } from "../../../types/utils";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 import { listSlashCommands } from "../../../utils/slashCommandsListing";
 
+const renderSymbol = (value: boolean) => (value ? "  ✓   " : "  ✗   ");
+
+interface IRenderRow {
+  slashCommand: Awaited<ReturnType<typeof listSlashCommands>>[number];
+  global: SlashCommand["name"][];
+  guild: SlashCommand["name"][];
+}
+
+const renderRow = ({ slashCommand, global, guild }: IRenderRow) =>
+  `| ${renderSymbol(global.includes(slashCommand.name))} | ${renderSymbol(
+    guild.includes(slashCommand.name),
+  )} | ${slashCommand.name}`;
+
 const buildCommandTable = (
   slashCommands: Awaited<ReturnType<typeof listSlashCommands>>,
   registeredGlobalSlashCommands: SlashCommand["name"][],
   registeredGuildSlashCommands: SlashCommand["name"][],
-): string => `| global |  guild | name 
-| --------------------------------
-${slashCommands
-  .map(
-    (sc) =>
-      `| ${
-        registeredGlobalSlashCommands.includes(sc.name) ? "  ✓   " : "  ✗   "
-      } | ${
-        registeredGuildSlashCommands.includes(sc.name) ? "  ✓   " : "  ✗   "
-      } | ${sc.name}`,
-  )
-  .join("\n")}`;
+): string =>
+  [
+    "| global |  guild | name ",
+    "| --------------------------------",
+    `${slashCommands
+      .map((sc) =>
+        renderRow({
+          slashCommand: sc,
+          global: registeredGlobalSlashCommands,
+          guild: registeredGuildSlashCommands,
+        }),
+      )
+      .join("\n")}`,
+  ].join("\n");
 
 const buildEmbed = (commandTable: string) =>
   new EmbedBuilder()

@@ -9,7 +9,14 @@ import { BotEvent } from "../../types/utils";
 const searchSlashCommand = (client: Client, interaction: BaseInteraction) => {
   if (!interaction.isCommand() || !interaction.isChatInputCommand())
     return null;
-  return client.slashCommands.get(interaction.commandName);
+  const { commandName } = interaction;
+  const subcommandGroupName = interaction.options.getSubcommandGroup();
+  const subcommandName = interaction.options.getSubcommand(false);
+  const searchCommandName = [commandName, subcommandGroupName, subcommandName]
+    .filter((name) => name)
+    .join(" ");
+  console.log(searchCommandName);
+  return client.slashCommands.get(searchCommandName);
 };
 
 const replyError = async (interaction: ChatInputCommandInteraction) => {
@@ -44,6 +51,7 @@ export default {
       try {
         await command.execute(client, interaction);
       } catch (error) {
+        console.error(error);
         await replyError(interaction);
       }
     }
