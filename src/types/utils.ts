@@ -51,7 +51,7 @@ export interface PrefixCommand {
   commands: string[];
   execute: (
     client: Client<true>,
-    message: Message,
+    message: Message<true>,
     args: string[],
   ) => void | Promise<void>;
 }

@@ -8,6 +8,7 @@ export default {
   eventName: Events.MessageCreate,
   once: false,
   execute: async (client, message: Message) => {
+    if (!message.inGuild()) return;
     if (isSentByUser(message)) {
       const result = searchPrefixCommand(client, message);
       if (!result) return;
