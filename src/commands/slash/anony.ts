@@ -2,26 +2,27 @@ import {
   Client,
   CommandInteraction,
   EmbedBuilder,
-  SlashCommandBuilder,
 } from "discord.js";
-import ANONY_CONSTANTS from "../constants/anony";
+import ANONY_CONSTANTS from "../../constants/anony";
+import { SlashCommand } from "../../types/utils";
 
-export const anonyCommand = {
-  data: new SlashCommandBuilder()
-    .setName(ANONY_CONSTANTS.name)
-    .setDescription(ANONY_CONSTANTS.description)
-    .addStringOption((option) =>
+export default {
+  name: ANONY_CONSTANTS.name,
+  description: ANONY_CONSTANTS.description,
+  type: "command",
+  builder: (command) =>
+    command.addStringOption((option) =>
       option
         .setName(ANONY_CONSTANTS.subCommandTitleName)
         .setDescription(ANONY_CONSTANTS.subCommandTitleDescription)
         .setRequired(true),
     )
-    .addStringOption((option) =>
-      option
-        .setName(ANONY_CONSTANTS.subCommandMessageName)
-        .setDescription(ANONY_CONSTANTS.subCommandMessageDescription)
-        .setRequired(true),
-    ),
+      .addStringOption((option) =>
+        option
+          .setName(ANONY_CONSTANTS.subCommandMessageName)
+          .setDescription(ANONY_CONSTANTS.subCommandMessageDescription)
+          .setRequired(true),
+      ),
   async execute(client: Client, interaction: CommandInteraction) {
     const channel = client.channels.cache.get(
       process.env.ANONYMOUS_APPROVAL_CHANNEL_ID,
@@ -47,9 +48,9 @@ export const anonyCommand = {
               (data) => data.name === ANONY_CONSTANTS.subCommandMessageName,
             )?.value as string) || "No content",
         });
-      const message = await channel.send({ embeds: [embed] });
+      const message = await channel.send({embeds: [embed]});
       await message.react(ANONY_CONSTANTS.approveEmoji);
       await message.react(ANONY_CONSTANTS.rejectEmoji);
     }
   },
-};
+} satisfies SlashCommand;
