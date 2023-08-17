@@ -18,7 +18,9 @@ interface SlashCommandBase {
 
 export interface SlashCommandRoot extends SlashCommandBase {
   type: "command";
-  builder?: (command: SlashCommandBuilder) => SlashCommandBuilder;
+  builder?: (
+    command: SlashCommandBuilder,
+  ) => Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
 }
 
 export interface SlashCommandSubcommand extends SlashCommandBase {
@@ -43,7 +45,8 @@ export type SlashCommand =
 export interface BotEvent {
   once: boolean;
   eventName: keyof ClientEvents;
-  execute: (client: Client<true>, ...args: unknown[]) => Promise<void>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  execute: (client: Client<true>, ...args: any[]) => Promise<void>;
 }
 
 export interface PrefixCommand {

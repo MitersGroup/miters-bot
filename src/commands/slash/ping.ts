@@ -1,15 +1,15 @@
+import PING_CONSTANTS from "../../constants/ping";
 import { SlashCommand } from "../../types/utils";
-import contents from "../../contents/ping";
 
 export default {
   name: "ping",
-  description: contents.DESCRIPTION,
+  description: PING_CONSTANTS.description,
   type: "command",
   builder: (command) =>
     command.addStringOption((option) =>
       option.setName("test").setDescription("test"),
     ),
   execute: async (_client, interaction) => {
-    await interaction.reply(contents.PONG);
+    await interaction.reply(PING_CONSTANTS.pong);
   },
-} as SlashCommand;
+} satisfies SlashCommand;
