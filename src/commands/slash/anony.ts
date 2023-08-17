@@ -31,7 +31,7 @@ export default {
       const embed = new EmbedBuilder()
         .setColor(ANONY_CONSTANTS.defaultColorCode)
         .setTitle(
-          `(#${new Date().getTime()}) ${
+          `${
             interaction.options.data.find(
               (data) => data.name === ANONY_CONSTANTS.subCommandTitleName,
             )?.value ?? "Untitled"
