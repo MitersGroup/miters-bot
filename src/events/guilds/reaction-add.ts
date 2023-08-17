@@ -1,7 +1,14 @@
-import { BotEvent } from "../../types/utils";
-import { Client, Embed, EmbedBuilder, Events, ForumChannel, MessageReaction, User } from "discord.js";
+import {
+  Client,
+  Embed,
+  EmbedBuilder,
+  Events,
+  ForumChannel,
+  MessageReaction,
+  User,
+} from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
-
+import { BotEvent } from "../../types/utils";
 
 const isEmbed = (embed: Embed[]): embed is [Embed] => {
   const expectedEmbedLength = 1;
@@ -36,11 +43,11 @@ const generateEmbedMessage = (
 };
 
 const handleApprove = async ({
-                               client,
-                               message,
-                               user,
-                               embed,
-                             }: {
+  client,
+  message,
+  user,
+  embed,
+}: {
   client: Client;
   message: MessageReaction["message"];
   embed: Embed;
@@ -48,7 +55,7 @@ const handleApprove = async ({
 }) => {
   await message.reactions.removeAll();
   const embedMessage = generateEmbedMessage("APPROVE", embed, user);
-  await message.edit({embeds: [embedMessage]});
+  await message.edit({ embeds: [embedMessage] });
   const channel = client.channels.cache.get(
     process.env.ANONYMOUS_POST_CHANNEL_ID,
   );
@@ -66,22 +73,22 @@ const handleApprove = async ({
 };
 
 const handleReaction = async ({
-                                client,
-                                reaction,
-                                user,
-                                embed,
-                              }: {
+  client,
+  reaction,
+  user,
+  embed,
+}: {
   client: Client;
   reaction: MessageReaction;
   embed: Embed;
   user: User;
 }) => {
   if (reaction.emoji.name === ANONY_CONSTANTS.approveEmoji) {
-    await handleApprove({client, message: reaction.message, user, embed});
+    await handleApprove({ client, message: reaction.message, user, embed });
   } else if (reaction.emoji.name === ANONY_CONSTANTS.rejectEmoji) {
     await reaction.message.reactions.removeAll();
     const embedMessage = generateEmbedMessage("REJECT", embed, user);
-    await reaction.message.edit({embeds: [embedMessage]});
+    await reaction.message.edit({ embeds: [embedMessage] });
   }
 };
 
@@ -98,7 +105,7 @@ export default {
 
     if (
       reaction.message.channel.id !==
-      process.env.ANONYMOUS_APPROVAL_CHANNEL_ID ||
+        process.env.ANONYMOUS_APPROVAL_CHANNEL_ID ||
       !isEmbed(reaction.message.embeds) ||
       user.bot
     )
@@ -114,6 +121,6 @@ export default {
     )
       return;
 
-    await handleReaction({client, reaction, user, embed});
+    await handleReaction({ client, reaction, user, embed });
   },
 } satisfies BotEvent;

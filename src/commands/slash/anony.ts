@@ -1,8 +1,4 @@
-import {
-  Client,
-  CommandInteraction,
-  EmbedBuilder,
-} from "discord.js";
+import { Client, CommandInteraction, EmbedBuilder } from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
 import { SlashCommand } from "../../types/utils";
 
@@ -11,12 +7,13 @@ export default {
   description: ANONY_CONSTANTS.description,
   type: "command",
   builder: (command) =>
-    command.addStringOption((option) =>
-      option
-        .setName(ANONY_CONSTANTS.subCommandTitleName)
-        .setDescription(ANONY_CONSTANTS.subCommandTitleDescription)
-        .setRequired(true),
-    )
+    command
+      .addStringOption((option) =>
+        option
+          .setName(ANONY_CONSTANTS.subCommandTitleName)
+          .setDescription(ANONY_CONSTANTS.subCommandTitleDescription)
+          .setRequired(true),
+      )
       .addStringOption((option) =>
         option
           .setName(ANONY_CONSTANTS.subCommandMessageName)
@@ -48,7 +45,7 @@ export default {
               (data) => data.name === ANONY_CONSTANTS.subCommandMessageName,
             )?.value as string) || "No content",
         });
-      const message = await channel.send({embeds: [embed]});
+      const message = await channel.send({ embeds: [embed] });
       await message.react(ANONY_CONSTANTS.approveEmoji);
       await message.react(ANONY_CONSTANTS.rejectEmoji);
     }

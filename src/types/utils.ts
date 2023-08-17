@@ -18,7 +18,9 @@ interface SlashCommandBase {
 
 export interface SlashCommandRoot extends SlashCommandBase {
   type: "command";
-  builder?: (command: SlashCommandBuilder) => Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
+  builder?: (
+    command: SlashCommandBuilder,
+  ) => Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
 }
 
 export interface SlashCommandSubcommand extends SlashCommandBase {
