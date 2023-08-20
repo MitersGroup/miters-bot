@@ -58,6 +58,11 @@
         "js": "never",
         "ts": "never"
       }
+    ],
+
+    "@typescript-eslint/no-base-to-string": [
+      "error",
+      { "ignoredTypeNames": ["GuildBasedChannel"] }
     ]
   },
   "settings": {
