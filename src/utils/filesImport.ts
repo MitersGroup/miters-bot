@@ -1,4 +1,5 @@
 import readdirp, { EntryInfo } from "readdirp";
+import { pathToFileURL } from "url";
 
 interface IImportFiles {
   path: string;
@@ -20,7 +21,7 @@ export const importFiles = async <T>({
       .on("data", (entry: EntryInfo) => {
         files.push(
           new Promise((resolveImport) => {
-            void import(entry.fullPath).then((file) => {
+            void import(pathToFileURL(entry.fullPath).href).then((file) => {
               resolveImport({
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                 data: file.default as T,
