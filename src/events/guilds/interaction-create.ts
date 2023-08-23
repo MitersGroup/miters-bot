@@ -3,8 +3,10 @@ import {
   ChatInputCommandInteraction,
   Client,
   Events,
+  StringSelectMenuInteraction,
 } from "discord.js";
 import { BotEvent } from "../../types/utils";
+import { occupation } from "../../contents/roles";
 
 const searchSlashCommand = (client: Client, interaction: BaseInteraction) => {
   if (!interaction.isCommand() || !interaction.isChatInputCommand())
@@ -33,6 +35,38 @@ const replyError = async (interaction: ChatInputCommandInteraction) => {
   }
 };
 
+const chatInputCommandHandler = async (
+  client: Client<true>,
+  interaction: ChatInputCommandInteraction,
+) => {
+  const command = searchSlashCommand(client, interaction);
+  if (!command) {
+    console.error(`No command matching ${interaction.commandName} was found.`);
+    return;
+  }
+
+  try {
+    await command.execute(client, interaction);
+  } catch (error) {
+    console.error(error);
+    await replyError(interaction);
+  }
+};
+
+const stringSelectMenuHandler = async (
+  interaction: StringSelectMenuInteraction<"cached">,
+) => {
+  const { roles } = interaction.member;
+  const allOccupationRoles = interaction.guild.roles.cache.filter((role) =>
+    occupation.map((item) => item.role).includes(role.name),
+  );
+  await roles.remove(allOccupationRoles);
+  await roles.add(
+    allOccupationRoles.filter((role) => interaction.values.includes(role.name)),
+  );
+  await interaction.update({});
+};
+
 export default {
   eventName: Events.InteractionCreate,
   once: false,
@@ -40,20 +74,15 @@ export default {
     if (!interaction.guild) return;
 
     if (interaction.isChatInputCommand()) {
-      const command = searchSlashCommand(client, interaction);
-      if (!command) {
-        console.error(
-          `No command matching ${interaction.commandName} was found.`,
-        );
-        return;
-      }
+      await chatInputCommandHandler(client, interaction);
+    }
 
-      try {
-        await command.execute(client, interaction);
-      } catch (error) {
-        console.error(error);
-        await replyError(interaction);
-      }
+    if (
+      interaction.isStringSelectMenu() &&
+      interaction.inCachedGuild() &&
+      interaction.message.id === process.env.ROLE_SELECTION_MESSAGE_ID
+    ) {
+      await stringSelectMenuHandler(interaction);
     }
   },
 } as BotEvent;

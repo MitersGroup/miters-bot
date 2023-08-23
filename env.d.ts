@@ -10,6 +10,7 @@ declare global {
       ANONYMOUS_POST_CHANNEL_ID: string;
       PREFIX: string;
       FEEDBACK_CHANNEL_ID: string;
+      ROLE_SELECTION_MESSAGE_ID: string;
     }
   }
 }
