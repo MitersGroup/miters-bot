@@ -1,4 +1,5 @@
-import { PrefixCommand, SlashCommand } from "./utils";
+import { PrefixCommand } from "../commands/prefix/prefixCommands.handler";
+import { SlashCommand } from "./utils";
 import { Collection } from "discord.js";
 
 declare module "discord.js" {

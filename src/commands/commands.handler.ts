@@ -1,17 +1,8 @@
-import { PrefixCommand, SlashCommand } from "../../types/utils";
 import { Client } from "discord.js";
-import { importFiles } from "../../utils/filesImport";
+import { SlashCommand } from "../types/utils";
+import { importFiles } from "../utils/filesImport";
+import { loadPrefixCommands } from "./prefix/prefixCommands.handler";
 
-const loadPrefixCommands = async (client: Client) => {
-  const commands = await importFiles<PrefixCommand>({
-    path: `commands/prefix`,
-  });
-  console.log(`Loaded (${commands.length}) prefix commands`);
-  commands.forEach(({ data }) => {
-    if (!data.name) return;
-    client.prefixCommands.set(data.name, data);
-  });
-};
 const loadSlashCommands = async (client: Client) => {
   const commands = await importFiles<SlashCommand>({
     path: `commands/slash`,
@@ -32,5 +23,6 @@ const loadSlashCommands = async (client: Client) => {
 };
 
 export default function registerCommands(client: Client) {
+  console.log("Loading commands...");
   return Promise.all([loadSlashCommands(client), loadPrefixCommands(client)]);
 }

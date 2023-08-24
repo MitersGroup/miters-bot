@@ -1,7 +1,7 @@
 import { Client, Guild, Message } from "discord.js";
-import { PrefixCommand } from "../../../types/utils";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 import { listSlashCommands } from "../../../utils/slashCommandsListing";
+import { PrefixCommand } from "../prefixCommands.handler";
 
 interface IPutSlashCommandsToGlobal {
   client: Client<true>;
@@ -91,7 +91,7 @@ const registerSlashCommands = async ({
 const isGuild = (message: Message) => message.content.includes("--guild");
 const isGlobal = (message: Message) => message.content.includes("--global");
 
-export default {
+const command: PrefixCommand = {
   name: "registerSlash",
   commands: ["slash register"],
   execute: async (client, message, args) => {
@@ -125,4 +125,6 @@ export default {
       slashCommands: commandsToRegister,
     });
   },
-} as PrefixCommand;
+};
+
+export default command;

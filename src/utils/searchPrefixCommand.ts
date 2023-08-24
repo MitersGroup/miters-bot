@@ -1,5 +1,5 @@
 import { Client, Message } from "discord.js";
-import { PrefixCommand } from "../types/utils";
+import { PrefixCommand } from "../commands/prefix/prefixCommands.handler";
 
 const BOT_PREFIX = process.env.PREFIX;
 

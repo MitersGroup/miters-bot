@@ -3,10 +3,10 @@ import {
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
 } from "discord.js";
-import { PrefixCommand } from "../../types/utils";
+import { PrefixCommand } from "./prefixCommands.handler";
 import { occupation as occupationOptions } from "../../contents/roles";
 
-export default {
+const command: PrefixCommand = {
   name: "role",
   commands: ["role"],
   execute: async (_Client, message) => {
@@ -45,4 +45,6 @@ export default {
       components: [row],
     });
   },
-} as PrefixCommand;
+};
+
+export default command;

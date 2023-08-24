@@ -1,7 +1,8 @@
 import { ApplicationCommand, EmbedBuilder } from "discord.js";
-import { PrefixCommand, SlashCommand } from "../../../types/utils";
+import { SlashCommand } from "../../../types/utils";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 import { listSlashCommands } from "../../../utils/slashCommandsListing";
+import { PrefixCommand } from "../prefixCommands.handler";
 
 const renderSymbol = (value: boolean) => (value ? "  ✓   " : "  ✗   ");
 
@@ -64,7 +65,7 @@ const getRegisteredSlashCommands = (
     )
     .map((slashCommand) => slashCommand.name);
 
-export default {
+const command: PrefixCommand = {
   name: "listSlash",
   commands: ["slash"],
   execute: async (client, message) => {
@@ -98,4 +99,6 @@ export default {
       embeds: [embed],
     });
   },
-} as PrefixCommand;
+};
+
+export default command;

@@ -1,9 +1,11 @@
-import { PrefixCommand } from "../../types/utils";
+import { PrefixCommand } from "./prefixCommands.handler";
 
-export default {
+const command: PrefixCommand = {
   name: "ping",
   commands: ["ping"],
   execute: async (_Client, message) => {
     await message.channel.send("pong");
   },
-} as PrefixCommand;
+};
+
+export default command;

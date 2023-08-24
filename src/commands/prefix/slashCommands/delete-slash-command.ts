@@ -1,5 +1,5 @@
 import { Client, Guild, Message } from "discord.js";
-import { PrefixCommand } from "../../../types/utils";
+import { PrefixCommand } from "../prefixCommands.handler";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 
 interface IDeleteGlobalSlashCommands {
@@ -106,7 +106,7 @@ const checkIsGuild = (message: Message) => message.content.includes("--guild");
 const checkIsGlobal = (message: Message) =>
   message.content.includes("--global");
 
-export default {
+const command: PrefixCommand = {
   name: "deleteSlash",
   commands: ["slash delete"],
   execute: async (client, message, args) => {
@@ -140,4 +140,6 @@ export default {
       commandsToDelete: slashCommandsName,
     });
   },
-} as PrefixCommand;
+};
+
+export default command;

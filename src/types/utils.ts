@@ -48,13 +48,3 @@ export interface BotEvent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   execute: (client: Client<true>, ...args: any[]) => Promise<void>;
 }
-
-export interface PrefixCommand {
-  name: string;
-  commands: string[];
-  execute: (
-    client: Client<true>,
-    message: Message<true>,
-    args: string[],
-  ) => void | Promise<void>;
-}
