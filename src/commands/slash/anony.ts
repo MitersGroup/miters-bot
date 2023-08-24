@@ -1,8 +1,8 @@
 import { Client, CommandInteraction, EmbedBuilder } from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
-import { SlashCommand } from "../../types/utils";
+import { SlashCommand } from "./slashCommands.handler";
 
-export default {
+const command: SlashCommand = {
   name: ANONY_CONSTANTS.name,
   description: ANONY_CONSTANTS.description,
   type: "command",
@@ -50,4 +50,6 @@ export default {
       await message.react(ANONY_CONSTANTS.rejectEmoji);
     }
   },
-} satisfies SlashCommand;
+};
+
+export default command;

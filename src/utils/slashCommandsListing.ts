@@ -4,13 +4,13 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from "discord.js";
+import { importFiles } from "./filesImport";
 import {
-  SlashCommand,
   SlashCommandRoot,
+  SlashCommand,
   SlashCommandSubcommand,
   SlashCommandSubcommandGroup,
-} from "../types/utils";
-import { importFiles } from "./filesImport";
+} from "../commands/slash/slashCommands.handler";
 
 const processCommands = (
   commands: SlashCommandRoot[],
