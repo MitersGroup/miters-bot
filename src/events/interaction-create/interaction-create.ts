@@ -2,10 +2,9 @@ import {
   BaseInteraction,
   ChatInputCommandInteraction,
   Client,
-  Events,
   StringSelectMenuInteraction,
 } from "discord.js";
-import { BotEvent } from "../../types/utils";
+import { InteractionCreateEvent } from "./interactionCreateEvents.handler";
 import { occupation } from "../../contents/roles";
 
 const searchSlashCommand = (client: Client, interaction: BaseInteraction) => {
@@ -67,9 +66,7 @@ const stringSelectMenuHandler = async (
   await interaction.update({});
 };
 
-export default {
-  eventName: Events.InteractionCreate,
-  once: false,
+const event: InteractionCreateEvent = {
   execute: async (client, interaction: BaseInteraction) => {
     if (!interaction.guild) return;
 
@@ -85,4 +82,6 @@ export default {
       await stringSelectMenuHandler(interaction);
     }
   },
-} as BotEvent;
+};
+
+export default event;

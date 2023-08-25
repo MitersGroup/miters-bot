@@ -1,5 +1,6 @@
 import { Client, ClientEvents } from "discord.js";
 import { loadClientReadyEvents } from "./client-ready/clientReadyEvents.handler";
+import { loadInteractionCreateEvents } from "./interaction-create/interactionCreateEvents.handler";
 
 export interface BotEvent {
   once: boolean;
@@ -10,5 +11,8 @@ export interface BotEvent {
 
 export default async function registerEvents(client: Client) {
   console.log("Loading events...");
-  return Promise.all([loadClientReadyEvents(client)]);
+  return Promise.all([
+    loadClientReadyEvents(client),
+    loadInteractionCreateEvents(client),
+  ]);
 }
