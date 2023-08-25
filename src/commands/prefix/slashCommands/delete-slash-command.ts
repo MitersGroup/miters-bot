@@ -1,5 +1,5 @@
 import { Client, Guild, Message } from "discord.js";
-import { PrefixCommand } from "../prefixCommands.handler";
+import { PrefixCommand } from "../../../handlers/prefixCommands.handler";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 
 interface IDeleteGlobalSlashCommands {

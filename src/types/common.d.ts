@@ -1,6 +1,6 @@
 import { Collection } from "discord.js";
-import { PrefixCommand } from "../commands/prefix/prefixCommands.handler";
-import { SlashCommand } from "../commands/slash/slashCommands.handler";
+import { PrefixCommand } from "../handlers/prefixCommands.handler";
+import { SlashCommand } from "../handlers/slashCommands.handler";
 
 declare module "discord.js" {
   export interface Client {

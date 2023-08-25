@@ -9,7 +9,7 @@ import {
   User,
 } from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
-import { MessageReactionAddEvent } from "./messageReactionAddEvents.handler";
+import { MessageReactionAddEvent } from "../../handlers/messageReactionAddEvents.handler";
 
 const isEmbed = (embed: Embed[]): embed is [Embed] => {
   const expectedEmbedLength = 1;

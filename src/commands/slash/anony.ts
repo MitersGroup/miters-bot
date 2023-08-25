@@ -1,6 +1,6 @@
 import { Client, CommandInteraction, EmbedBuilder } from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
-import { SlashCommand } from "./slashCommands.handler";
+import { SlashCommand } from "../../handlers/slashCommands.handler";
 
 const slashCommand: SlashCommand = {
   name: ANONY_CONSTANTS.name,

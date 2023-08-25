@@ -9,7 +9,7 @@ import {
   SlashCommandRoot,
   SlashCommandSubcommand,
   SlashCommandSubcommandGroup,
-} from "../commands/slash/slashCommands.handler";
+} from "../handlers/slashCommands.handler";
 import { importFiles } from "./filesImport";
 
 const processCommands = (

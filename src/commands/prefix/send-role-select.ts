@@ -3,7 +3,7 @@ import {
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
 } from "discord.js";
-import { PrefixCommand } from "./prefixCommands.handler";
+import { PrefixCommand } from "../../handlers/prefixCommands.handler";
 import { occupation as occupationOptions } from "../../contents/roles";
 
 const command: PrefixCommand = {

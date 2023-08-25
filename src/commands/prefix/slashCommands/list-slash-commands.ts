@@ -1,6 +1,6 @@
 import { ApplicationCommand, EmbedBuilder } from "discord.js";
-import { PrefixCommand } from "../prefixCommands.handler";
-import { SlashCommand } from "../../slash/slashCommands.handler";
+import { PrefixCommand } from "../../../handlers/prefixCommands.handler";
+import { SlashCommand } from "../../../handlers/slashCommands.handler";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 import { listSlashCommands } from "../../../utils/slashCommandsListing";
 

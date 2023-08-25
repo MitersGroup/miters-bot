@@ -4,7 +4,7 @@ import {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "discord.js";
-import { importFiles } from "../../utils/filesImport";
+import { importFiles } from "../utils/filesImport";
 
 interface SlashCommandBase {
   name: string;

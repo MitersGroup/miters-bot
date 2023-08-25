@@ -1,5 +1,5 @@
 import { Client, Message } from "discord.js";
-import { importFiles } from "../../utils/filesImport";
+import { importFiles } from "../utils/filesImport";
 
 export interface PrefixCommand {
   name: string;

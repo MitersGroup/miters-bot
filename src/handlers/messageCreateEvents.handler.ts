@@ -1,5 +1,5 @@
 import { Client, Events, Message } from "discord.js";
-import { importFiles } from "../../utils/filesImport";
+import { importFiles } from "../utils/filesImport";
 
 export interface MessageCreateEvent {
   execute: (client: Client<true>, message: Message) => void | Promise<void>;

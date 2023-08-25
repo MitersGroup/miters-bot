@@ -1,4 +1,4 @@
-import { PrefixCommand } from "./prefixCommands.handler";
+import { PrefixCommand } from "../../handlers/prefixCommands.handler";
 
 const command: PrefixCommand = {
   name: "ping",

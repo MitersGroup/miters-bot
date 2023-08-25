@@ -4,7 +4,7 @@ import {
   Client,
   StringSelectMenuInteraction,
 } from "discord.js";
-import { InteractionCreateEvent } from "./interactionCreateEvents.handler";
+import { InteractionCreateEvent } from "../../handlers/interactionCreateEvents.handler";
 import { occupation } from "../../contents/roles";
 
 const searchSlashCommand = (client: Client, interaction: BaseInteraction) => {

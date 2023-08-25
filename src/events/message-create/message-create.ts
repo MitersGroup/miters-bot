@@ -1,5 +1,5 @@
 import { Message } from "discord.js";
-import { MessageCreateEvent } from "./messageCreateEvents.handler";
+import { MessageCreateEvent } from "../../handlers/messageCreateEvents.handler";
 import searchPrefixCommand from "../../utils/searchPrefixCommand";
 
 const isSentByUser = (message: Message) => !message.author.bot;

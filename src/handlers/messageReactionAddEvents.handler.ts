@@ -6,7 +6,7 @@ import {
   PartialUser,
   User,
 } from "discord.js";
-import { importFiles } from "../../utils/filesImport";
+import { importFiles } from "../utils/filesImport";
 
 export interface MessageReactionAddEvent {
   execute: (

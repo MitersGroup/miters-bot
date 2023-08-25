@@ -1,5 +1,5 @@
 import { BaseInteraction, Client, Events } from "discord.js";
-import { importFiles } from "../../utils/filesImport";
+import { importFiles } from "../utils/filesImport";
 
 export interface InteractionCreateEvent {
   execute: (

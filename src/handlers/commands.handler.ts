@@ -1,6 +1,6 @@
 import { Client } from "discord.js";
-import { loadPrefixCommands } from "./prefix/prefixCommands.handler";
-import { loadSlashCommands } from "./slash/slashCommands.handler";
+import { loadPrefixCommands } from "./prefixCommands.handler";
+import { loadSlashCommands } from "./slashCommands.handler";
 
 export default function registerCommands(client: Client) {
   console.log("Loading commands...");
