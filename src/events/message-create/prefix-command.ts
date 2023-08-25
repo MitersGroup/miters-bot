@@ -5,14 +5,13 @@ import searchPrefixCommand from "../../utils/searchPrefixCommand";
 const isSentByUser = (message: Message) => !message.author.bot;
 
 const event: MessageCreateEvent = {
-  execute: async (client, message: Message) => {
-    if (!message.inGuild()) return;
-    if (isSentByUser(message)) {
-      const result = searchPrefixCommand(client, message);
-      if (!result) return;
+  execute: async (client, message) => {
+    if (!message.inGuild() || !isSentByUser(message)) return;
 
-      await result.command.execute(client, message, result.args);
-    }
+    const result = searchPrefixCommand(client, message);
+    if (!result) return;
+
+    await result.command.execute(client, message, result.args);
   },
 };
 
