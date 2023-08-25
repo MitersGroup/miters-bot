@@ -1,7 +1,7 @@
 import { Client, Guild, Message } from "discord.js";
+import { PrefixCommand } from "../prefixCommands.handler";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 import { listSlashCommands } from "../../../utils/slashCommandsListing";
-import { PrefixCommand } from "../prefixCommands.handler";
 
 interface IPutSlashCommandsToGlobal {
   client: Client<true>;

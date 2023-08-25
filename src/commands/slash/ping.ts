@@ -1,7 +1,7 @@
 import PING_CONSTANTS from "../../constants/ping";
 import { SlashCommand } from "./slashCommands.handler";
 
-const command: SlashCommand = {
+const slashCommand: SlashCommand = {
   name: "ping",
   description: PING_CONSTANTS.description,
   type: "command",
@@ -14,4 +14,4 @@ const command: SlashCommand = {
   },
 };
 
-export default command;
+export default slashCommand;

@@ -1,8 +1,8 @@
 import { ApplicationCommand, EmbedBuilder } from "discord.js";
-import djsRestHelper from "../../../utils/discordjs/slashCommands";
-import { listSlashCommands } from "../../../utils/slashCommandsListing";
 import { PrefixCommand } from "../prefixCommands.handler";
 import { SlashCommand } from "../../slash/slashCommands.handler";
+import djsRestHelper from "../../../utils/discordjs/slashCommands";
+import { listSlashCommands } from "../../../utils/slashCommandsListing";
 
 const renderSymbol = (value: boolean) => (value ? "  ✓   " : "  ✗   ");
 
