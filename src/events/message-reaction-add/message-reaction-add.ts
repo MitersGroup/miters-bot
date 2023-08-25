@@ -2,13 +2,14 @@ import {
   Client,
   Embed,
   EmbedBuilder,
-  Events,
   ForumChannel,
   MessageReaction,
+  PartialMessageReaction,
+  PartialUser,
   User,
 } from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
-import { BotEvent } from "../../types/utils";
+import { MessageReactionAddEvent } from "./messageReactionAddEvents.handler";
 
 const isEmbed = (embed: Embed[]): embed is [Embed] => {
   const expectedEmbedLength = 1;
@@ -18,7 +19,7 @@ const isEmbed = (embed: Embed[]): embed is [Embed] => {
 const generateEmbedMessage = (
   type: "APPROVE" | "REJECT",
   embed: Embed,
-  user: User,
+  user: User | PartialUser,
 ) => {
   let colorCode: number = ANONY_CONSTANTS.defaultColorCode;
   let fieldName = "";
@@ -38,7 +39,7 @@ const generateEmbedMessage = (
     .addFields(embed.fields)
     .addFields({
       name: fieldName,
-      value: user.username,
+      value: user.username ?? "Unknown user",
     });
 };
 
@@ -51,7 +52,7 @@ const handleApprove = async ({
   client: Client;
   message: MessageReaction["message"];
   embed: Embed;
-  user: User;
+  user: User | PartialUser;
 }) => {
   await message.reactions.removeAll();
   const embedMessage = generateEmbedMessage("APPROVE", embed, user);
@@ -79,9 +80,9 @@ const handleReaction = async ({
   embed,
 }: {
   client: Client;
-  reaction: MessageReaction;
+  reaction: MessageReaction | PartialMessageReaction;
   embed: Embed;
-  user: User;
+  user: User | PartialUser;
 }) => {
   if (reaction.emoji.name === ANONY_CONSTANTS.approveEmoji) {
     await handleApprove({ client, message: reaction.message, user, embed });
@@ -92,10 +93,12 @@ const handleReaction = async ({
   }
 };
 
-export default {
-  eventName: Events.MessageReactionAdd,
-  once: false,
-  execute: async (client: Client, reaction: MessageReaction, user: User) => {
+const event: MessageReactionAddEvent = {
+  execute: async (
+    client: Client,
+    reaction: MessageReaction | PartialMessageReaction,
+    user: User | PartialUser,
+  ) => {
     try {
       await reaction.fetch();
     } catch (error) {
@@ -123,4 +126,6 @@ export default {
 
     await handleReaction({ client, reaction, user, embed });
   },
-} satisfies BotEvent;
+};
+
+export default event;

@@ -1,12 +1,10 @@
-import { Events, Message } from "discord.js";
-import { BotEvent } from "../../types/utils";
+import { Message } from "discord.js";
+import { MessageCreateEvent } from "./messageCreateEvents.handler";
 import searchPrefixCommand from "../../utils/searchPrefixCommand";
 
 const isSentByUser = (message: Message) => !message.author.bot;
 
-export default {
-  eventName: Events.MessageCreate,
-  once: false,
+const event: MessageCreateEvent = {
   execute: async (client, message: Message) => {
     if (!message.inGuild()) return;
     if (isSentByUser(message)) {
@@ -16,4 +14,6 @@ export default {
       await result.command.execute(client, message, result.args);
     }
   },
-} as BotEvent;
+};
+
+export default event;
