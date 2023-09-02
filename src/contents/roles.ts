@@ -1,6 +1,9 @@
 export const occupation = [
+  { role: "FullStack", label: "全栈" },
+  { role: "Frontend", label: "前端" },
+  { role: "Backend", label: "后端" },
+  { role: "Data Science", label: "数据" },
+  { role: "AI/ML", label: "人工智能" },
+  { role: "UI-UX Designer", label: "UI-UX设计师" },
   { role: "Student", label: "学生" },
-  { role: "Employee", label: "打工族" },
-  { role: "Freelancer", label: "自由职业者" },
-  { role: "Employer", label: "老板" },
 ];
