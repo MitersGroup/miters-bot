@@ -4,7 +4,7 @@ import {
   StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { PrefixCommand } from "../../handlers/prefixCommands.handler";
-import { occupation as occupationOptions } from "../../contents/roles";
+import { occupation as occupationOptions } from "../../constants/roles";
 
 const command: PrefixCommand = {
   name: "role",

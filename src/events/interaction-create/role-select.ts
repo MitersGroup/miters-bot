@@ -1,5 +1,5 @@
 import { InteractionCreateEvent } from "../../handlers/interactionCreateEvents.handler";
-import { occupation } from "../../contents/roles";
+import { occupation } from "../../constants/roles";
 
 const event: InteractionCreateEvent = {
   execute: async (_client, interaction) => {
