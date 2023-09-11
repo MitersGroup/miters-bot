@@ -1,8 +1,9 @@
-import { Client, CommandInteraction, EmbedBuilder } from "discord.js";
+import type { Client, CommandInteraction } from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
-import { SlashCommand } from "../../types/utils";
+import { EmbedBuilder } from "discord.js";
+import type { SlashCommand } from "../../handlers/slashCommands.handler";
 
-export default {
+const slashCommand: SlashCommand = {
   name: ANONY_CONSTANTS.name,
   description: ANONY_CONSTANTS.description,
   type: "command",
@@ -24,7 +25,11 @@ export default {
     const channel = client.channels.cache.get(
       process.env.ANONYMOUS_APPROVAL_CHANNEL_ID,
     );
-    if (channel?.isTextBased()) {
+    if (!channel) {
+      console.error("Anonymous channel not found.");
+      return;
+    }
+    if (channel.isTextBased()) {
       const embed = new EmbedBuilder()
         .setColor(ANONY_CONSTANTS.defaultColorCode)
         .setTitle(
@@ -50,4 +55,6 @@ export default {
       await message.react(ANONY_CONSTANTS.rejectEmoji);
     }
   },
-} satisfies SlashCommand;
+};
+
+export default slashCommand;

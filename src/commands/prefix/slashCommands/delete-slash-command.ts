@@ -1,5 +1,5 @@
-import { Client, Guild, Message } from "discord.js";
-import { PrefixCommand } from "../../../types/utils";
+import type { Client, Guild, Message } from "discord.js";
+import type { PrefixCommand } from "../../../handlers/prefixCommands.handler";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 
 interface IDeleteGlobalSlashCommands {
@@ -12,7 +12,7 @@ const deleteGlobalSlashCommands = async ({
   commandsToDelete,
   client,
   sentMessage,
-}: IDeleteGlobalSlashCommands) => {
+}: IDeleteGlobalSlashCommands): Promise<void> => {
   const registeredGlobalSlashCommands =
     await djsRestHelper.slashCommand.global.getAll({ client });
 
@@ -45,7 +45,7 @@ const deleteGuildSlashCommands = async ({
   client,
   sentMessage,
   guild,
-}: IDeleteGuildSlashCommands) => {
+}: IDeleteGuildSlashCommands): Promise<void> => {
   const registeredGuildSlashCommands =
     await djsRestHelper.slashCommand.guild.getAll({
       guild,
@@ -85,7 +85,7 @@ const deleteSlashCommands = async ({
   isGuild,
   sentMessage,
   isGlobal,
-}: IDeleteSlashCommands) => {
+}: IDeleteSlashCommands): Promise<void> => {
   if (isGuild) {
     await deleteGuildSlashCommands({
       client,
@@ -102,11 +102,12 @@ const deleteSlashCommands = async ({
   }
 };
 
-const checkIsGuild = (message: Message) => message.content.includes("--guild");
-const checkIsGlobal = (message: Message) =>
+const checkIsGuild = (message: Message): boolean =>
+  message.content.includes("--guild");
+const checkIsGlobal = (message: Message): boolean =>
   message.content.includes("--global");
 
-export default {
+const command: PrefixCommand = {
   name: "deleteSlash",
   commands: ["slash delete"],
   execute: async (client, message, args) => {
@@ -140,4 +141,6 @@ export default {
       commandsToDelete: slashCommandsName,
     });
   },
-} as PrefixCommand;
+};
+
+export default command;

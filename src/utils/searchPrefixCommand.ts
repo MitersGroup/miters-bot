@@ -1,12 +1,12 @@
-import { Client, Message } from "discord.js";
-import { PrefixCommand } from "../types/utils";
+import type { Client, Message } from "discord.js";
+import type { PrefixCommand } from "../handlers/prefixCommands.handler";
 
 const BOT_PREFIX = process.env.PREFIX;
 
-const trimWhitespace = (str: string) =>
+const trimWhitespace = (str: string): string =>
   str.split("\n").join("").replace(/\s+/gu, " ").trim();
 
-const isBotCommand = (client: Client<true>, message: Message) =>
+const isBotCommand = (client: Client<true>, message: Message): boolean =>
   trimWhitespace(message.content)
     .toLowerCase()
     .startsWith(BOT_PREFIX.toLowerCase()) ||
@@ -18,12 +18,12 @@ interface IGenerateArgs {
   message: Message;
 }
 
-const generateArgs = ({ prefix, message, botId }: IGenerateArgs) => {
+const generateArgs = ({ prefix, message, botId }: IGenerateArgs): string[] => {
   const messageContent = trimWhitespace(message.content.toLowerCase());
   let args: string[] = [];
   if (messageContent.startsWith(prefix)) {
     args = messageContent.slice(prefix.length).split(" ");
-  } else if (botId && message.mentions.has(botId)) {
+  } else if (typeof botId !== "undefined" && message.mentions.has(botId)) {
     args = messageContent
       .replace(`<@${botId}>`, "")
       .split(" ")
@@ -34,7 +34,7 @@ const generateArgs = ({ prefix, message, botId }: IGenerateArgs) => {
   return args;
 };
 
-const validateCommand = (commands: string[], args: string[]) =>
+const validateCommand = (commands: string[], args: string[]): boolean =>
   commands.some((cmd) =>
     cmd
       .split(" ")
@@ -43,7 +43,10 @@ const validateCommand = (commands: string[], args: string[]) =>
       ),
   );
 
-const getMatchedCommandLength = (commands: string[], args: string[]) => {
+const getMatchedCommandLength = (
+  commands: string[],
+  args: string[],
+): number => {
   const matched =
     commands.find((cmd) =>
       cmd

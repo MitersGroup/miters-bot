@@ -1,7 +1,7 @@
 import PING_CONSTANTS from "../../constants/ping";
-import { SlashCommand } from "../../types/utils";
+import type { SlashCommand } from "../../handlers/slashCommands.handler";
 
-export default {
+const slashCommand: SlashCommand = {
   name: "ping",
   description: PING_CONSTANTS.description,
   type: "command",
@@ -12,4 +12,6 @@ export default {
   execute: async (_client, interaction) => {
     await interaction.reply(PING_CONSTANTS.pong);
   },
-} satisfies SlashCommand;
+};
+
+export default slashCommand;

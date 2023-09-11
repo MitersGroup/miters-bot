@@ -4,18 +4,18 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from "discord.js";
-import {
+import type {
   SlashCommand,
   SlashCommandRoot,
   SlashCommandSubcommand,
   SlashCommandSubcommandGroup,
-} from "../types/utils";
+} from "../handlers/slashCommands.handler";
 import { importFiles } from "./filesImport";
 
 const processCommands = (
   commands: SlashCommandRoot[],
   generatedSlashCommands: Collection<string, SlashCommandBuilder>,
-) => {
+): void => {
   for (const command of commands) {
     const cmd = new SlashCommandBuilder()
       .setName(command.name)
@@ -28,7 +28,7 @@ const processCommands = (
 const processSubcommands = (
   subcommands: SlashCommand[],
   generatedSlashCommands: Collection<string, SlashCommandBuilder>,
-) => {
+): void => {
   for (const subcommand of subcommands) {
     const { commandName, name, description, builder } =
       subcommand as SlashCommandSubcommand;
@@ -47,7 +47,7 @@ const processSubcommandGroups = (
   subcommandGroups: SlashCommand[],
   slashCommands: SlashCommand[],
   generatedSlashCommands: Collection<string, SlashCommandBuilder>,
-) => {
+): void => {
   for (const subcommandGroup of subcommandGroups) {
     const { commandName, name: subcommandGroupName } =
       subcommandGroup as SlashCommandSubcommandGroup;
@@ -76,7 +76,9 @@ const processSubcommandGroups = (
   }
 };
 
-export const generateSlashCommands = (slashCommands: SlashCommand[]) => {
+export const generateSlashCommands = (
+  slashCommands: SlashCommand[],
+): Collection<string, SlashCommandBuilder> => {
   const generatedSlashCommands = new Collection<string, SlashCommandBuilder>();
   const commands = slashCommands.filter(
     (sc) => sc.type === "command",
@@ -93,7 +95,7 @@ export const generateSlashCommands = (slashCommands: SlashCommand[]) => {
     generatedSlashCommands,
   );
   const subcommands = slashCommands.filter(
-    (sc) => sc.type === "subcommand" && !sc.groupName,
+    (sc) => sc.type === "subcommand" && typeof sc.groupName !== "undefined",
   );
 
   processSubcommands(subcommands, generatedSlashCommands);

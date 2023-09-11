@@ -1,14 +1,15 @@
-import {
+import type {
   Client,
   Embed,
-  EmbedBuilder,
-  Events,
   ForumChannel,
   MessageReaction,
+  PartialMessageReaction,
+  PartialUser,
   User,
 } from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
-import { BotEvent } from "../../types/utils";
+import { EmbedBuilder } from "discord.js";
+import type { MessageReactionAddEvent } from "../../handlers/messageReactionAddEvents.handler";
 
 const isEmbed = (embed: Embed[]): embed is [Embed] => {
   const expectedEmbedLength = 1;
@@ -18,8 +19,8 @@ const isEmbed = (embed: Embed[]): embed is [Embed] => {
 const generateEmbedMessage = (
   type: "APPROVE" | "REJECT",
   embed: Embed,
-  user: User,
-) => {
+  user: PartialUser | User,
+): EmbedBuilder => {
   let colorCode: number = ANONY_CONSTANTS.defaultColorCode;
   let fieldName = "";
 
@@ -38,7 +39,7 @@ const generateEmbedMessage = (
     .addFields(embed.fields)
     .addFields({
       name: fieldName,
-      value: user.username,
+      value: user.username ?? "Unknown user",
     });
 };
 
@@ -51,8 +52,8 @@ const handleApprove = async ({
   client: Client;
   message: MessageReaction["message"];
   embed: Embed;
-  user: User;
-}) => {
+  user: PartialUser | User;
+}): Promise<void> => {
   await message.reactions.removeAll();
   const embedMessage = generateEmbedMessage("APPROVE", embed, user);
   await message.edit({ embeds: [embedMessage] });
@@ -79,10 +80,10 @@ const handleReaction = async ({
   embed,
 }: {
   client: Client;
-  reaction: MessageReaction;
+  reaction: MessageReaction | PartialMessageReaction;
   embed: Embed;
-  user: User;
-}) => {
+  user: PartialUser | User;
+}): Promise<void> => {
   if (reaction.emoji.name === ANONY_CONSTANTS.approveEmoji) {
     await handleApprove({ client, message: reaction.message, user, embed });
   } else if (reaction.emoji.name === ANONY_CONSTANTS.rejectEmoji) {
@@ -92,10 +93,12 @@ const handleReaction = async ({
   }
 };
 
-export default {
-  eventName: Events.MessageReactionAdd,
-  once: false,
-  execute: async (client: Client, reaction: MessageReaction, user: User) => {
+const event: MessageReactionAddEvent = {
+  execute: async (
+    client: Client,
+    reaction: MessageReaction | PartialMessageReaction,
+    user: PartialUser | User,
+  ) => {
     try {
       await reaction.fetch();
     } catch (error) {
@@ -123,4 +126,6 @@ export default {
 
     await handleReaction({ client, reaction, user, embed });
   },
-} satisfies BotEvent;
+};
+
+export default event;

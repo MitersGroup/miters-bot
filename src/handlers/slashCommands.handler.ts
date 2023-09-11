@@ -1,11 +1,10 @@
-import {
+import type {
   ChatInputCommandInteraction,
   Client,
-  ClientEvents,
-  Message,
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
 } from "discord.js";
+import { importFiles } from "../utils/filesImport";
 
 interface SlashCommandBase {
   name: string;
@@ -42,19 +41,22 @@ export type SlashCommand =
   | SlashCommandSubcommand
   | SlashCommandSubcommandGroup;
 
-export interface BotEvent {
-  once: boolean;
-  eventName: keyof ClientEvents;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  execute: (client: Client<true>, ...args: any[]) => Promise<void>;
-}
-
-export interface PrefixCommand {
-  name: string;
-  commands: string[];
-  execute: (
-    client: Client<true>,
-    message: Message<true>,
-    args: string[],
-  ) => void | Promise<void>;
-}
+export const loadSlashCommands = async (client: Client): Promise<void> => {
+  const commands = await importFiles<SlashCommand>({
+    path: `commands/slash`,
+  });
+  console.log(`Loaded (${commands.length}) slash commands`);
+  commands.forEach(({ data }) => {
+    if (!data.name) return;
+    const commandName: string[] = [];
+    if (data.type === "command") {
+      commandName.push(data.name);
+    } else if (data.type === "subcommand") {
+      commandName.push(data.commandName);
+      if (typeof data.groupName !== "undefined")
+        commandName.push(data.groupName);
+      commandName.push(data.name);
+    }
+    client.slashCommands.set(commandName.join(" "), data);
+  });
+};

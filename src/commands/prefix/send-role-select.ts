@@ -3,13 +3,13 @@ import {
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
 } from "discord.js";
-import { PrefixCommand } from "../../types/utils";
-import { occupation as occupationOptions } from "../../contents/roles";
+import type { PrefixCommand } from "../../handlers/prefixCommands.handler";
+import { occupation as occupationOptions } from "../../constants/roles";
 
-export default {
+const command: PrefixCommand = {
   name: "role",
   commands: ["role"],
-  execute: async (_Client, message) => {
+  execute: async (_client, message) => {
     const select = new StringSelectMenuBuilder()
       .setCustomId("starter")
       .setPlaceholder("Make a selection!")
@@ -45,4 +45,6 @@ export default {
       components: [row],
     });
   },
-} as PrefixCommand;
+};
+
+export default command;

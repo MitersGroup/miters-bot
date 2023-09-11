@@ -1,4 +1,5 @@
-import { ApplicationCommand, Client, Routes } from "discord.js";
+import type { ApplicationCommand, Client } from "discord.js";
+import { Routes } from "discord.js";
 import { djsRestClient } from "./client";
 
 export interface IGetGlobalSlashCommands {
@@ -7,7 +8,7 @@ export interface IGetGlobalSlashCommands {
 
 export const getGlobalSlashCommands = async ({
   client,
-}: IGetGlobalSlashCommands) => {
+}: IGetGlobalSlashCommands): Promise<ApplicationCommand[]> => {
   try {
     const data = await djsRestClient.get(
       Routes.applicationCommands(client.user.id),

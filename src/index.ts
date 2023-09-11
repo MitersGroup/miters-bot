@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { Client, Collection, GatewayIntentBits, Partials } from "discord.js";
-import registerBotEvents from "./handler/on-start/bot-events.handler";
-import registerCommands from "./handler/on-start/commands.handler";
+import registerCommands from "./handlers/commands.handler";
+import registerEvents from "./handlers/events.handler";
 
 const client = new Client({
   intents: [
@@ -16,7 +16,7 @@ const client = new Client({
 client.slashCommands = new Collection();
 client.prefixCommands = new Collection();
 
-void Promise.all([registerCommands(client), registerBotEvents(client)]).then(
+void Promise.all([registerCommands(client), registerEvents(client)]).then(
   () => {
     void client.login(process.env.DISCORD_TOKEN);
   },

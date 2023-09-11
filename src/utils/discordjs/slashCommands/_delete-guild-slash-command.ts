@@ -1,4 +1,5 @@
-import { Client, Guild, Routes } from "discord.js";
+import type { Client, Guild } from "discord.js";
+import { Routes } from "discord.js";
 import { djsRestClient } from "./client";
 
 export interface IDeleteGuildSlashCommand {
@@ -11,7 +12,7 @@ export const deleteGuildSlashCommand = async ({
   client,
   guild,
   commandId,
-}: IDeleteGuildSlashCommand) => {
+}: IDeleteGuildSlashCommand): Promise<void> => {
   try {
     await djsRestClient.delete(
       Routes.applicationGuildCommand(client.user.id, guild.id, commandId),
