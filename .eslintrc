@@ -18,21 +18,19 @@
   ],
   "rules": {
     // This is personal preference. Ternary is helpful for shorten conditional code.
-    // https://eslint.org/docs/latest/rules/no-ternary
     "no-ternary": "off",
+
     // There are many cases that alphabetic sort not the best solution.
-    // https://eslint.org/docs/latest/rules/sort-vars
     "sort-vars": "off",
+
     // There are many cases that alphabetic sort not the best solution.
-    // https://eslint.org/docs/latest/rules/sort-keys
     "sort-keys": "off",
-    // This is a discord bot project, which console will not be viewable by user
-    // https://eslint.org/docs/latest/rules/no-console
+
+    // This is a discord bot project, console will not be viewable by user.
     "no-console": "off",
 
     // In ES6, make variable declaration in one line doesn't make sense. At
     // opposite, we should avoid it.
-    // https://eslint.org/docs/latest/rules/one-var
     "one-var": [
       "error",
       {
@@ -41,16 +39,15 @@
       }
     ],
 
-    // https://eslint.org/docs/latest/rules/no-void
+    // We need this to do asynchronous in event handler.
     "no-void": [
       "error",
       {
-        // We need this to do asynchronous in event handler.
         "allowAsStatement": true
       }
     ],
 
-    // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/extensions.md
+    // This conflict with `discord.js`.
     "import/extensions": [
       "error",
       {
@@ -62,6 +59,7 @@
     // This rule will conflict with type import.
     "no-duplicate-imports": "off",
 
+    // We need `toString` of classes from discord.js
     "@typescript-eslint/no-base-to-string": [
       "error",
       { "ignoredTypeNames": ["GuildBasedChannel"] }
@@ -72,6 +70,7 @@
       { "ignoreInferredTypes": true }
     ],
 
+    // Project specific naming convention.
     "@typescript-eslint/naming-convention": [
       "error",
       {
