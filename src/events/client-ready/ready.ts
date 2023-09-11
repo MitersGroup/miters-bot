@@ -1,4 +1,4 @@
-import { ClientReadyEvent } from "../../handlers/clientReadyEvents.handler";
+import type { ClientReadyEvent } from "../../handlers/clientReadyEvents.handler";
 
 const event: ClientReadyEvent = {
   execute: (client) => {

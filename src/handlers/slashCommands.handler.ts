@@ -1,4 +1,4 @@
-import {
+import type {
   ChatInputCommandInteraction,
   Client,
   SlashCommandBuilder,
@@ -41,7 +41,7 @@ export type SlashCommand =
   | SlashCommandSubcommand
   | SlashCommandSubcommandGroup;
 
-export const loadSlashCommands = async (client: Client) => {
+export const loadSlashCommands = async (client: Client): Promise<void> => {
   const commands = await importFiles<SlashCommand>({
     path: `commands/slash`,
   });
@@ -53,7 +53,8 @@ export const loadSlashCommands = async (client: Client) => {
       commandName.push(data.name);
     } else if (data.type === "subcommand") {
       commandName.push(data.commandName);
-      if (data.groupName) commandName.push(data.groupName);
+      if (typeof data.groupName !== "undefined")
+        commandName.push(data.groupName);
       commandName.push(data.name);
     }
     client.slashCommands.set(commandName.join(" "), data);

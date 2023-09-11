@@ -1,10 +1,10 @@
-import {
+import type {
   ApplicationCommand,
   Client,
   Guild,
-  Routes,
   SlashCommandBuilder,
 } from "discord.js";
+import { Routes } from "discord.js";
 import { djsRestClient } from "./client";
 
 export interface ICreateGuildSlashCommand {
@@ -17,7 +17,7 @@ export const createGuildSlashCommand = async ({
   commands,
   client,
   guild,
-}: ICreateGuildSlashCommand) => {
+}: ICreateGuildSlashCommand): Promise<ApplicationCommand | null> => {
   try {
     const data = await djsRestClient.post(
       Routes.applicationGuildCommands(client.user.id, guild.id),

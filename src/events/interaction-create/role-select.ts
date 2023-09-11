@@ -1,4 +1,4 @@
-import { InteractionCreateEvent } from "../../handlers/interactionCreateEvents.handler";
+import type { InteractionCreateEvent } from "../../handlers/interactionCreateEvents.handler";
 import { occupation } from "../../constants/roles";
 
 const event: InteractionCreateEvent = {

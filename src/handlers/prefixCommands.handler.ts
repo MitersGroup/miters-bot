@@ -1,4 +1,4 @@
-import { Client, Message } from "discord.js";
+import type { Client, Message } from "discord.js";
 import { importFiles } from "../utils/filesImport";
 
 export interface PrefixCommand {
@@ -8,10 +8,10 @@ export interface PrefixCommand {
     client: Client<true>,
     message: Message<true>,
     args: string[],
-  ) => void | Promise<void>;
+  ) => Promise<void> | void;
 }
 
-export const loadPrefixCommands = async (client: Client) => {
+export const loadPrefixCommands = async (client: Client): Promise<void> => {
   const commands = await importFiles<PrefixCommand>({
     path: `commands/prefix`,
   });

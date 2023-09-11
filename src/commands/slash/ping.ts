@@ -1,5 +1,5 @@
 import PING_CONSTANTS from "../../constants/ping";
-import { SlashCommand } from "../../handlers/slashCommands.handler";
+import type { SlashCommand } from "../../handlers/slashCommands.handler";
 
 const slashCommand: SlashCommand = {
   name: "ping",

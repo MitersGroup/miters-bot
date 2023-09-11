@@ -1,9 +1,9 @@
-import {
+import type {
   ApplicationCommand,
   Client,
-  Routes,
   SlashCommandBuilder,
 } from "discord.js";
+import { Routes } from "discord.js";
 import { djsRestClient } from "./client";
 
 export interface ICreateGlobalSlashCommand {
@@ -14,7 +14,7 @@ export interface ICreateGlobalSlashCommand {
 export const createGlobalSlashCommand = async ({
   commands,
   client,
-}: ICreateGlobalSlashCommand) => {
+}: ICreateGlobalSlashCommand): Promise<ApplicationCommand | null> => {
   try {
     const data = await djsRestClient.post(
       Routes.applicationCommands(client.user.id),

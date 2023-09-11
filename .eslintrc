@@ -13,8 +13,7 @@
     "eslint:all",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "plugin:@typescript-eslint/strict-type-checked",
-    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:@typescript-eslint/all",
     "prettier"
   ],
   "rules": {
@@ -60,9 +59,41 @@
       }
     ],
 
+    // This rule will conflict with type import.
+    "no-duplicate-imports": "off",
+
     "@typescript-eslint/no-base-to-string": [
       "error",
       { "ignoredTypeNames": ["GuildBasedChannel"] }
+    ],
+
+    "@typescript-eslint/prefer-readonly-parameter-types": [
+      "off",
+      { "ignoreInferredTypes": true }
+    ],
+
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "default",
+        "format": ["camelCase"],
+        "leadingUnderscore": "allow",
+        "trailingUnderscore": "allow"
+      },
+      {
+        "selector": "variable",
+        "format": ["camelCase", "UPPER_CASE"],
+        "leadingUnderscore": "allow",
+        "trailingUnderscore": "allow"
+      },
+      {
+        "selector": "typeLike",
+        "format": ["PascalCase"]
+      },
+      {
+        "selector": "typeProperty",
+        "format": ["camelCase", "UPPER_CASE"]
+      }
     ]
   },
   "settings": {

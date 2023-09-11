@@ -1,5 +1,5 @@
-import { Client, Guild, Message } from "discord.js";
-import { PrefixCommand } from "../../../handlers/prefixCommands.handler";
+import type { Client, Guild, Message } from "discord.js";
+import type { PrefixCommand } from "../../../handlers/prefixCommands.handler";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 import { listSlashCommands } from "../../../utils/slashCommandsListing";
 
@@ -13,7 +13,7 @@ const putSlashCommandsToGlobal = async ({
   slashCommands,
   client,
   sentMessage,
-}: IPutSlashCommandsToGlobal) => {
+}: IPutSlashCommandsToGlobal): Promise<void> => {
   await Promise.all(
     slashCommands.map(async (command) => {
       await djsRestHelper.slashCommand.global.createOne({
@@ -39,7 +39,7 @@ const putSlashCommandsToGuild = async ({
   slashCommands,
   client,
   sentMessage,
-}: IPutSlashCommandsToGuild) => {
+}: IPutSlashCommandsToGuild): Promise<void> => {
   await Promise.all(
     slashCommands.map(async (command) => {
       await djsRestHelper.slashCommand.guild.createOne({
@@ -71,7 +71,7 @@ const registerSlashCommands = async ({
   isGuild,
   guild,
   isGlobal,
-}: IRegisterSlashCommands) => {
+}: IRegisterSlashCommands): Promise<void> => {
   if (isGuild) {
     await putSlashCommandsToGuild({
       client,
@@ -88,8 +88,10 @@ const registerSlashCommands = async ({
   }
 };
 
-const isGuild = (message: Message) => message.content.includes("--guild");
-const isGlobal = (message: Message) => message.content.includes("--global");
+const isGuild = (message: Message): boolean =>
+  message.content.includes("--guild");
+const isGlobal = (message: Message): boolean =>
+  message.content.includes("--global");
 
 const command: PrefixCommand = {
   name: "registerSlash",

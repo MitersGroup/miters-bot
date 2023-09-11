@@ -1,10 +1,11 @@
-import { ApplicationCommand, EmbedBuilder } from "discord.js";
-import { PrefixCommand } from "../../../handlers/prefixCommands.handler";
-import { SlashCommand } from "../../../handlers/slashCommands.handler";
+import type { ApplicationCommand } from "discord.js";
+import { EmbedBuilder } from "discord.js";
+import type { PrefixCommand } from "../../../handlers/prefixCommands.handler";
+import type { SlashCommand } from "../../../handlers/slashCommands.handler";
 import djsRestHelper from "../../../utils/discordjs/slashCommands";
 import { listSlashCommands } from "../../../utils/slashCommandsListing";
 
-const renderSymbol = (value: boolean) => (value ? "  ✓   " : "  ✗   ");
+const renderSymbol = (value: boolean): string => (value ? "  ✓   " : "  ✗   ");
 
 interface IRenderRow {
   slashCommand: Awaited<ReturnType<typeof listSlashCommands>>[number];
@@ -12,7 +13,7 @@ interface IRenderRow {
   guild: SlashCommand["name"][];
 }
 
-const renderRow = ({ slashCommand, global, guild }: IRenderRow) =>
+const renderRow = ({ slashCommand, global, guild }: IRenderRow): string =>
   `| ${renderSymbol(global.includes(slashCommand.name))} | ${renderSymbol(
     guild.includes(slashCommand.name),
   )} | ${slashCommand.name}`;
@@ -36,7 +37,7 @@ const buildCommandTable = (
       .join("\n")}`,
   ].join("\n");
 
-const buildEmbed = (commandTable: string) =>
+const buildEmbed = (commandTable: string): EmbedBuilder =>
   new EmbedBuilder()
     .setTitle("Slash Commands")
     .setDescription(`\`\`\`${commandTable}\`\`\``)

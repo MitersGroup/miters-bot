@@ -16,7 +16,7 @@ export const importFiles = async <T>({
   const entries = await readdirp.promise(`./src/${path}`, {
     fileFilter: ["*.ts", "!*.handler.ts"],
   });
-  const files = entries.map((entry) =>
+  const files = entries.map(async (entry) =>
     import(pathToFileURL(entry.fullPath).href).then((file: { default: T }) => ({
       data: file.default,
       path: entry.path,

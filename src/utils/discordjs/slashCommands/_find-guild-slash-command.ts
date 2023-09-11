@@ -1,4 +1,5 @@
-import { ApplicationCommand, Client, Guild, Routes } from "discord.js";
+import type { ApplicationCommand, Client, Guild } from "discord.js";
+import { Routes } from "discord.js";
 import { djsRestClient } from "./client";
 
 export interface IGetGuildSlashCommands {
@@ -11,7 +12,7 @@ export const findGuildSlashCommand = async ({
   guild,
   client,
   commandId,
-}: IGetGuildSlashCommands) => {
+}: IGetGuildSlashCommands): Promise<ApplicationCommand | null> => {
   try {
     const data = await djsRestClient.get(
       Routes.applicationGuildCommand(client.user.id, guild.id, commandId),

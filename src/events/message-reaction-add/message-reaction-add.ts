@@ -1,7 +1,6 @@
-import {
+import type {
   Client,
   Embed,
-  EmbedBuilder,
   ForumChannel,
   MessageReaction,
   PartialMessageReaction,
@@ -9,7 +8,8 @@ import {
   User,
 } from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
-import { MessageReactionAddEvent } from "../../handlers/messageReactionAddEvents.handler";
+import { EmbedBuilder } from "discord.js";
+import type { MessageReactionAddEvent } from "../../handlers/messageReactionAddEvents.handler";
 
 const isEmbed = (embed: Embed[]): embed is [Embed] => {
   const expectedEmbedLength = 1;
@@ -19,8 +19,8 @@ const isEmbed = (embed: Embed[]): embed is [Embed] => {
 const generateEmbedMessage = (
   type: "APPROVE" | "REJECT",
   embed: Embed,
-  user: User | PartialUser,
-) => {
+  user: PartialUser | User,
+): EmbedBuilder => {
   let colorCode: number = ANONY_CONSTANTS.defaultColorCode;
   let fieldName = "";
 
@@ -52,8 +52,8 @@ const handleApprove = async ({
   client: Client;
   message: MessageReaction["message"];
   embed: Embed;
-  user: User | PartialUser;
-}) => {
+  user: PartialUser | User;
+}): Promise<void> => {
   await message.reactions.removeAll();
   const embedMessage = generateEmbedMessage("APPROVE", embed, user);
   await message.edit({ embeds: [embedMessage] });
@@ -82,8 +82,8 @@ const handleReaction = async ({
   client: Client;
   reaction: MessageReaction | PartialMessageReaction;
   embed: Embed;
-  user: User | PartialUser;
-}) => {
+  user: PartialUser | User;
+}): Promise<void> => {
   if (reaction.emoji.name === ANONY_CONSTANTS.approveEmoji) {
     await handleApprove({ client, message: reaction.message, user, embed });
   } else if (reaction.emoji.name === ANONY_CONSTANTS.rejectEmoji) {
@@ -97,7 +97,7 @@ const event: MessageReactionAddEvent = {
   execute: async (
     client: Client,
     reaction: MessageReaction | PartialMessageReaction,
-    user: User | PartialUser,
+    user: PartialUser | User,
   ) => {
     try {
       await reaction.fetch();

@@ -1,7 +1,10 @@
-import { ChatInputCommandInteraction, Client } from "discord.js";
-import { InteractionCreateEvent } from "../../handlers/interactionCreateEvents.handler";
+import type { ChatInputCommandInteraction, Client } from "discord.js";
+import type { InteractionCreateEvent } from "../../handlers/interactionCreateEvents.handler";
+import type { SlashCommand } from "../../handlers/slashCommands.handler";
 
-const replyError = async (interaction: ChatInputCommandInteraction) => {
+const replyError = async (
+  interaction: ChatInputCommandInteraction,
+): Promise<void> => {
   if (interaction.replied || interaction.deferred) {
     await interaction.followUp({
       content: "There was an error while executing this command!",
@@ -18,7 +21,7 @@ const replyError = async (interaction: ChatInputCommandInteraction) => {
 const searchSlashCommand = (
   client: Client,
   interaction: ChatInputCommandInteraction,
-) => {
+): SlashCommand | undefined => {
   const { commandName } = interaction;
   const subcommandGroupName = interaction.options.getSubcommandGroup();
   const subcommandName = interaction.options.getSubcommand(false);
