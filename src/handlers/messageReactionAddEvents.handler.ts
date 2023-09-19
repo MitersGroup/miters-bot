@@ -20,7 +20,7 @@ export const loadMessageReactionAddEvents = async (
   client: Client,
 ): Promise<void> => {
   const events = await importFiles<MessageReactionAddEvent>({
-    path: `events/message-create`,
+    path: `events/message-reaction-add`,
   });
   console.log(`Loaded (${events.length}) message-reaction-add events`);
   events.forEach(({ data }) => {
