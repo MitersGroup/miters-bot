@@ -29,9 +29,10 @@ const command: PrefixCommand = {
       process.env.FEEDBACK_CHANNEL_ID,
     );
     if (!feedbackChannel) {
-      throw new Error(
-        "Please set the correct `FEEDBACK_CHANNEL_ID` in `.env`.",
+      console.error(
+        `\`FEEDBACK_CHANNEL_ID\` ${process.env.FEEDBACK_CHANNEL_ID} not exists in ${message.guild.name} `,
       );
+      return;
     }
     await message.channel.send({
       content: `
