@@ -18,7 +18,8 @@ export const loadPrefixCommands = async (client: Client): Promise<void> => {
   console.log(`Loaded (${commands.length}) prefix commands`);
   commands.forEach(({ data }) => {
     if (client.prefixCommands.has(data.name)) {
-      throw Error(`Prefix command "${data.name}" already exists!`);
+      console.error(`Prefix command "${data.name}" already exists!`);
+      return;
     }
     client.prefixCommands.set(data.name, data);
   });
