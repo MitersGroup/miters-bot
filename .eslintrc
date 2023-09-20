@@ -93,7 +93,14 @@
         "selector": "typeProperty",
         "format": ["camelCase", "UPPER_CASE"]
       }
-    ]
+    ],
+
+    "max-statements": ["error", { "max": 20 }],
+
+    "no-magic-numbers": "off",
+    "@typescript-eslint/no-magic-numbers": ["error", { "ignore": [0, 1, -1] }],
+
+    "max-lines-per-function": ["error", { "skipBlankLines": true }]
   },
   "settings": {
     "import/resolver": {
