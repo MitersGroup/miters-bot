@@ -1,5 +1,8 @@
+import {
+  getRoleSelectMessageCustomId,
+  occupation,
+} from "../../constants/roles";
 import type { InteractionCreateEvent } from "../../handlers/interactionCreateEvents.handler";
-import { occupation } from "../../constants/roles";
 
 const event: InteractionCreateEvent = {
   execute: async (_client, interaction) => {
@@ -7,23 +10,25 @@ const event: InteractionCreateEvent = {
       !(
         interaction.isStringSelectMenu() &&
         interaction.inCachedGuild() &&
-        interaction.message.id === process.env.ROLE_SELECTION_MESSAGE_ID
+        interaction.customId ===
+          getRoleSelectMessageCustomId(interaction.member.id)
       )
     ) {
       return;
     }
 
-    const { roles } = interaction.member;
     const allOccupationRoles = interaction.guild.roles.cache.filter((role) =>
       occupation.map((item) => item.role).includes(role.name),
     );
-    await roles.remove(allOccupationRoles);
-    await roles.add(
+    const member = await interaction.member.roles.remove(
+      Array.from(allOccupationRoles.keys()),
+    );
+    await member.roles.add(
       allOccupationRoles.filter((role) =>
         interaction.values.includes(role.name),
       ),
     );
-    await interaction.update({});
+    await interaction.update({ content: "设置成功！", components: [] });
   },
 };
 
