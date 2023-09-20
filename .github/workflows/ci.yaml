@@ -7,6 +7,15 @@ on:
     branches: [main]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.5.3
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+
   lint-check:
     runs-on: ubuntu-latest
     steps:
