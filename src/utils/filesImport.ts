@@ -13,8 +13,12 @@ interface IReturn<T> {
 export const importFiles = async <T>({
   path,
 }: IImportFiles): Promise<IReturn<T>[]> => {
-  const entries = await readdirp.promise(`./src/${path}`, {
-    fileFilter: ["*.ts", "!*.handler.ts"],
+  const inProduction = process.env["NODE_ENV"] === "production";
+  const dirRoot = inProduction ? "dist" : "src";
+  const fileFilter = inProduction ? "*.js" : "*.ts";
+
+  const entries = await readdirp.promise(`./${dirRoot}/${path}`, {
+    fileFilter: [fileFilter],
   });
   const files = entries.map(async (entry) =>
     import(pathToFileURL(entry.fullPath).href).then((file: { default: T }) => ({
