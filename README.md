@@ -20,14 +20,18 @@ cd miters
 2. Install the required dependencies using npm.
 
 ```bash
+# node v18
+# npm v9
 npm install
 ```
 
-3. Create a `.env` file in the root directory of the project and provide your Discord bot token. You can get your token by creating a new bot application on the [Discord Developer Portal](https://discord.com/developers/applications).
+3. Create a `.env` file in the root directory of the project and replace `DISCORD_TOKEN` value with your Discord bot token. You can get your token by creating a new bot application on the [Discord Developer Portal](https://discord.com/developers/applications).
 
 ```bash
 cp .env.example .env
 ```
+
+4. Enable Privileged Gateway Intents in [Discord Developer Portal](https://discord.com/developers/applications) -> Bot, if `Error('Used disallowed intents')`` is threw.
 
 ## Usage
 
