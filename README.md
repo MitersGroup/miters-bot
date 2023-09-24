@@ -52,17 +52,9 @@ We welcome contributions to the Miters Discord bot project! Whether you're an ex
 
 - **Feature Requests**: Have a great idea for a new feature? Share it with us on the [issue tracker](https://github.com/yyueniao/miters/issues).
 
-- **Code Contributions**: If you're comfortable with TypeScript and Discord.js, you can help us by fixing bugs or implementing new features. Fork the repository, make your changes, and submit a pull request:
+- **Code Contributions**: If you're comfortable with TypeScript and Discord.js, you can help us by fixing bugs or implementing new features.
 
-1. Fork the repository to your GitHub account.
-
-2. Create a new branch from the `main` branch for your changes.
-
-3. Make your modifications and improvements.
-
-4. Commit your changes and push them to your forked repository.
-
-5. Create a pull request to merge your changes into the main repository.
+Please read more at [Contributing instruction](.github/CONTRIBUTING.md)
 
 - **Documentation**: You can improve the project's documentation, including this README, by submitting pull requests with your updates.
 
