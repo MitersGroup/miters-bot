@@ -15,7 +15,6 @@ import type { SlashCommand } from "../../handlers/slashCommands.handler";
 const slashCommand: SlashCommand = {
   name: ROLE_CONSTANTS.name,
   description: ROLE_CONSTANTS.description,
-  type: "command",
   async execute(_client: Client, interaction: CommandInteraction) {
     if (!interaction.inCachedGuild()) {
       await interaction.reply(

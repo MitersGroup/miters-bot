@@ -4,11 +4,7 @@ import type { SlashCommand } from "../../handlers/slashCommands.handler";
 const slashCommand: SlashCommand = {
   name: "ping",
   description: PING_CONSTANTS.description,
-  type: "command",
-  builder: (command) =>
-    command.addStringOption((option) =>
-      option.setName("test").setDescription("test"),
-    ),
+  options: [{ name: "test", description: "test", required: true }],
   execute: async (_client, interaction) => {
     await interaction.reply(PING_CONSTANTS.pong);
   },

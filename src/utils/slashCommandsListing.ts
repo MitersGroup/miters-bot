@@ -1,104 +1,32 @@
 import {
   Collection,
   SlashCommandBuilder,
-  SlashCommandSubcommandBuilder,
-  SlashCommandSubcommandGroupBuilder,
+  SlashCommandStringOption,
 } from "discord.js";
-import type {
-  SlashCommand,
-  SlashCommandRoot,
-  SlashCommandSubcommand,
-  SlashCommandSubcommandGroup,
-} from "../handlers/slashCommands.handler";
+import type { SlashCommand } from "../handlers/slashCommands.handler";
 import { importFiles } from "./filesImport";
-
-const processCommands = (
-  commands: SlashCommandRoot[],
-  generatedSlashCommands: Collection<string, SlashCommandBuilder>,
-): void => {
-  for (const command of commands) {
-    const cmd = new SlashCommandBuilder()
-      .setName(command.name)
-      .setDescription(command.description);
-    if (command.builder) command.builder(cmd);
-    generatedSlashCommands.set(command.name, cmd);
-  }
-};
-
-const processSubcommands = (
-  subcommands: SlashCommand[],
-  generatedSlashCommands: Collection<string, SlashCommandBuilder>,
-): void => {
-  for (const subcommand of subcommands) {
-    const { commandName, name, description, builder } =
-      subcommand as SlashCommandSubcommand;
-    const command = generatedSlashCommands.get(commandName);
-    if (command) {
-      const subCmd = new SlashCommandSubcommandBuilder()
-        .setName(name)
-        .setDescription(description);
-      if (builder) builder(subCmd);
-      command.addSubcommand(subCmd);
-    }
-  }
-};
-
-const processSubcommandGroups = (
-  subcommandGroups: SlashCommand[],
-  slashCommands: SlashCommand[],
-  generatedSlashCommands: Collection<string, SlashCommandBuilder>,
-): void => {
-  for (const subcommandGroup of subcommandGroups) {
-    const { commandName, name: subcommandGroupName } =
-      subcommandGroup as SlashCommandSubcommandGroup;
-    const subcommands = slashCommands.filter(
-      (sc) =>
-        sc.type === "subcommand" &&
-        sc.groupName === subcommandGroupName &&
-        sc.commandName === commandName,
-    );
-    const command = generatedSlashCommands.get(commandName);
-    if (command) {
-      const subCmdGroup = new SlashCommandSubcommandGroupBuilder()
-        .setName(subcommandGroupName)
-        .setDescription(subcommandGroup.description);
-      subcommands.forEach((subcommand) => {
-        const { name, description, builder } =
-          subcommand as SlashCommandSubcommand;
-        const subCmd = new SlashCommandSubcommandBuilder()
-          .setName(name)
-          .setDescription(description);
-        if (builder) builder(subCmd);
-        subCmdGroup.addSubcommand(subCmd);
-      });
-      command.addSubcommandGroup(subCmdGroup);
-    }
-  }
-};
 
 export const generateSlashCommands = (
   slashCommands: SlashCommand[],
 ): Collection<string, SlashCommandBuilder> => {
   const generatedSlashCommands = new Collection<string, SlashCommandBuilder>();
-  const commands = slashCommands.filter(
-    (sc) => sc.type === "command",
-  ) as SlashCommandRoot[];
 
-  processCommands(commands, generatedSlashCommands);
-  const subcommandGroups = slashCommands.filter(
-    (sc) => sc.type === "subcommandGroup",
-  );
+  for (const command of slashCommands) {
+    const builder = new SlashCommandBuilder()
+      .setName(command.name)
+      .setDescription(command.description);
+    const { options = [] } = command;
+    options.forEach(({ name, description, required }) => {
+      builder.addStringOption(
+        new SlashCommandStringOption()
+          .setName(name)
+          .setDescription(description)
+          .setRequired(required),
+      );
+    });
+    generatedSlashCommands.set(command.name, builder);
+  }
 
-  processSubcommandGroups(
-    subcommandGroups,
-    slashCommands,
-    generatedSlashCommands,
-  );
-  const subcommands = slashCommands.filter(
-    (sc) => sc.type === "subcommand" && typeof sc.groupName !== "undefined",
-  );
-
-  processSubcommands(subcommands, generatedSlashCommands);
   return generatedSlashCommands;
 };
 
