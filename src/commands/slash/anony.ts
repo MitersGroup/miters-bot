@@ -6,21 +6,19 @@ import type { SlashCommand } from "../../handlers/slashCommands.handler";
 const slashCommand: SlashCommand = {
   name: ANONY_CONSTANTS.name,
   description: ANONY_CONSTANTS.description,
-  type: "command",
-  builder: (command) =>
-    command
-      .addStringOption((option) =>
-        option
-          .setName(ANONY_CONSTANTS.subCommandTitleName)
-          .setDescription(ANONY_CONSTANTS.subCommandTitleDescription)
-          .setRequired(true),
-      )
-      .addStringOption((option) =>
-        option
-          .setName(ANONY_CONSTANTS.subCommandMessageName)
-          .setDescription(ANONY_CONSTANTS.subCommandMessageDescription)
-          .setRequired(true),
-      ),
+  options: [
+    {
+      name: ANONY_CONSTANTS.subCommandTitleName,
+      description: ANONY_CONSTANTS.subCommandTitleDescription,
+      required: true,
+    },
+    {
+      name: ANONY_CONSTANTS.subCommandMessageName,
+      description: ANONY_CONSTANTS.subCommandMessageDescription,
+      required: true,
+    },
+  ],
+
   async execute(client: Client, interaction: CommandInteraction) {
     const channel = client.channels.cache.get(
       process.env.ANONYMOUS_APPROVAL_CHANNEL_ID,

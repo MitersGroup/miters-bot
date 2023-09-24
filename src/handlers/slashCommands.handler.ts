@@ -1,45 +1,21 @@
-import type {
-  ChatInputCommandInteraction,
-  Client,
-  SlashCommandBuilder,
-  SlashCommandSubcommandBuilder,
-} from "discord.js";
+import type { ChatInputCommandInteraction, Client } from "discord.js";
 import { importFiles } from "../utils/filesImport";
 
-interface SlashCommandBase {
+interface SlashCommandOption {
   name: string;
   description: string;
+  required: boolean;
+}
+
+export interface SlashCommand {
+  name: string;
+  description: string;
+  options?: SlashCommandOption[];
   execute: (
     client: Client,
     interaction: ChatInputCommandInteraction,
   ) => Promise<void>;
 }
-
-export interface SlashCommandRoot extends SlashCommandBase {
-  type: "command";
-  builder?: (
-    command: SlashCommandBuilder,
-  ) => Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
-}
-
-export interface SlashCommandSubcommand extends SlashCommandBase {
-  type: "subcommand";
-  groupName?: string;
-  commandName: string;
-  builder?: (
-    subcommand: SlashCommandSubcommandBuilder,
-  ) => SlashCommandSubcommandBuilder;
-}
-
-export interface SlashCommandSubcommandGroup extends SlashCommandBase {
-  type: "subcommandGroup";
-  commandName: string;
-}
-
-export type SlashCommand =
-  | SlashCommandRoot
-  | SlashCommandSubcommand
-  | SlashCommandSubcommandGroup;
 
 export const loadSlashCommands = async (client: Client): Promise<void> => {
   const commands = await importFiles<SlashCommand>({
@@ -47,16 +23,10 @@ export const loadSlashCommands = async (client: Client): Promise<void> => {
   });
   console.log(`Loaded (${commands.length}) slash commands`);
   commands.forEach(({ data }) => {
-    if (!data.name) return;
-    const commandName: string[] = [];
-    if (data.type === "command") {
-      commandName.push(data.name);
-    } else if (data.type === "subcommand") {
-      commandName.push(data.commandName);
-      if (typeof data.groupName !== "undefined")
-        commandName.push(data.groupName);
-      commandName.push(data.name);
+    if (client.slashCommands.has(data.name)) {
+      console.error(`Slash command "${data.name}" already exists!`);
+      return;
     }
-    client.slashCommands.set(commandName.join(" "), data);
+    client.slashCommands.set(data.name, data);
   });
 };

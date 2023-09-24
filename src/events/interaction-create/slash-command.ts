@@ -1,6 +1,5 @@
-import type { ChatInputCommandInteraction, Client } from "discord.js";
+import type { ChatInputCommandInteraction } from "discord.js";
 import type { InteractionCreateEvent } from "../../handlers/interactionCreateEvents.handler";
-import type { SlashCommand } from "../../handlers/slashCommands.handler";
 
 const replyError = async (
   interaction: ChatInputCommandInteraction,
@@ -18,27 +17,16 @@ const replyError = async (
   }
 };
 
-const searchSlashCommand = (
-  client: Client,
-  interaction: ChatInputCommandInteraction,
-): SlashCommand | undefined => {
-  const { commandName } = interaction;
-  const subcommandGroupName = interaction.options.getSubcommandGroup();
-  const subcommandName = interaction.options.getSubcommand(false);
-  const searchCommandName = [commandName, subcommandGroupName, subcommandName]
-    .filter((name) => name)
-    .join(" ");
-  console.log(searchCommandName);
-  return client.slashCommands.get(searchCommandName);
-};
-
 const event: InteractionCreateEvent = {
   execute: async (client, interaction) => {
     if (!interaction.isChatInputCommand()) {
       return;
     }
 
-    const command = searchSlashCommand(client, interaction);
+    const { commandName } = interaction;
+    console.log(commandName);
+    const command = client.slashCommands.get(commandName);
+
     if (!command) {
       console.error(
         `No command matching ${interaction.commandName} was found.`,
