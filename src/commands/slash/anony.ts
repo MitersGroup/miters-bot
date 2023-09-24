@@ -51,6 +51,7 @@ const slashCommand: SlashCommand = {
       const message = await channel.send({ embeds: [embed] });
       await message.react(ANONY_CONSTANTS.approveEmoji);
       await message.react(ANONY_CONSTANTS.rejectEmoji);
+      await interaction.reply("发送成功！请等待管理员审核…");
     }
   },
 };
