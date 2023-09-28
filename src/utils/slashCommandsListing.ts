@@ -1,5 +1,6 @@
 import {
   Collection,
+  SlashCommandBooleanOption,
   SlashCommandBuilder,
   SlashCommandStringOption,
 } from "discord.js";
@@ -16,13 +17,27 @@ export const generateSlashCommands = (
       .setName(command.name)
       .setDescription(command.description);
     const { options = [] } = command;
-    options.forEach(({ name, description, required }) => {
-      builder.addStringOption(
-        new SlashCommandStringOption()
-          .setName(name)
-          .setDescription(description)
-          .setRequired(required),
-      );
+    options.forEach(({ name, description, type, required }) => {
+      switch (type) {
+        case "string":
+          builder.addStringOption(
+            new SlashCommandStringOption()
+              .setName(name)
+              .setDescription(description)
+              .setRequired(required),
+          );
+          break;
+        case "boolean":
+          builder.addBooleanOption(
+            new SlashCommandBooleanOption()
+              .setName(name)
+              .setDescription(description)
+              .setRequired(required),
+          );
+          break;
+        default:
+          console.error("Unknown slash command options type.");
+      }
     });
     generatedSlashCommands.set(command.name, builder);
   }
