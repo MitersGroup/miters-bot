@@ -13,7 +13,7 @@ export interface SlashCommand {
   description: string;
   options?: SlashCommandOption[];
   execute: (
-    client: Client,
+    client: Client<true>,
     interaction: ChatInputCommandInteraction,
   ) => Promise<void>;
 }

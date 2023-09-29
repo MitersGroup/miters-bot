@@ -1,7 +1,5 @@
 import {
   ActionRowBuilder,
-  type Client,
-  type CommandInteraction,
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
 } from "discord.js";
@@ -15,7 +13,7 @@ import type { SlashCommand } from "../../handlers/slashCommands.handler";
 const slashCommand: SlashCommand = {
   name: ROLE_CONSTANTS.name,
   description: ROLE_CONSTANTS.description,
-  async execute(_client: Client, interaction: CommandInteraction) {
+  async execute(_client, interaction) {
     if (!interaction.inCachedGuild()) {
       await interaction.reply(
         "请在Miters群组内使用本指令。\n链接：https://discord.gg/miters",

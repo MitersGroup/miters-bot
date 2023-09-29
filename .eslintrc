@@ -98,7 +98,10 @@
     "max-statements": ["error", { "max": 20 }],
 
     "no-magic-numbers": "off",
-    "@typescript-eslint/no-magic-numbers": ["error", { "ignore": [0, 1, -1] }],
+    "@typescript-eslint/no-magic-numbers": [
+      "error",
+      { "ignore": [0, 1, -1], "ignoreTypeIndexes": true }
+    ],
 
     "max-lines-per-function": ["error", { "skipBlankLines": true }]
   },

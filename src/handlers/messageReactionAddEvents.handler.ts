@@ -1,18 +1,12 @@
-import type {
-  Client,
-  MessageReaction,
-  PartialMessageReaction,
-  PartialUser,
-  User,
-} from "discord.js";
+import type { Client, ClientEvents } from "discord.js";
 import { Events } from "discord.js";
 import { importFiles } from "../utils/filesImport";
 
 export interface MessageReactionAddEvent {
   execute: (
     client: Client<true>,
-    reaction: MessageReaction | PartialMessageReaction,
-    user: PartialUser | User,
+    reaction: ClientEvents["messageReactionAdd"][0],
+    user: ClientEvents["messageReactionAdd"][1],
   ) => Promise<void> | void;
 }
 
@@ -24,12 +18,8 @@ export const loadMessageReactionAddEvents = async (
   });
   console.log(`Loaded (${events.length}) message-reaction-add events`);
   events.forEach(({ data }) => {
-    client.on(
-      Events.MessageReactionAdd,
-      async (
-        reaction: MessageReaction | PartialMessageReaction,
-        user: PartialUser | User,
-      ) => data.execute(client, reaction, user),
+    client.on(Events.MessageReactionAdd, async (reaction, user) =>
+      data.execute(client, reaction, user),
     );
   });
 };

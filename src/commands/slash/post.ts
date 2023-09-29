@@ -1,7 +1,6 @@
 import type {
   ChatInputCommandInteraction,
   Client,
-  CommandInteraction,
   ForumChannel,
 } from "discord.js";
 import { ChannelType } from "discord.js";
@@ -9,7 +8,7 @@ import { POST_CONSTANTS } from "../../constants/post";
 import type { SlashCommand } from "../../handlers/slashCommands.handler";
 
 const getTargetChannel = (
-  client: Client,
+  client: Client<true>,
   interaction: ChatInputCommandInteraction,
 ): ForumChannel => {
   const isTechnical = interaction.options.getBoolean("technical");
@@ -59,10 +58,7 @@ const slashCommand: SlashCommand = {
       required: true,
     },
   ],
-  async execute(client: Client, interaction: CommandInteraction) {
-    if (!interaction.isChatInputCommand()) {
-      return;
-    }
+  async execute(client, interaction) {
     const channel = getTargetChannel(client, interaction);
     const title = interaction.options.getString("title");
     const content = interaction.options.getString("content");
