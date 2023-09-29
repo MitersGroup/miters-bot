@@ -10,11 +10,13 @@ const slashCommand: SlashCommand = {
     {
       name: ANONY_CONSTANTS.subCommandTitleName,
       description: ANONY_CONSTANTS.subCommandTitleDescription,
+      type: "string",
       required: true,
     },
     {
       name: ANONY_CONSTANTS.subCommandMessageName,
       description: ANONY_CONSTANTS.subCommandMessageDescription,
+      type: "string",
       required: true,
     },
   ],

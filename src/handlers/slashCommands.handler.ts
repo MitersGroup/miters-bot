@@ -5,6 +5,7 @@ interface SlashCommandOption {
   name: string;
   description: string;
   required: boolean;
+  type: "boolean" | "string";
 }
 
 export interface SlashCommand {
