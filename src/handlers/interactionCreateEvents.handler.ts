@@ -1,11 +1,11 @@
-import type { BaseInteraction, Client } from "discord.js";
+import type { Client, ClientEvents } from "discord.js";
 import { Events } from "discord.js";
 import { importFiles } from "../utils/filesImport";
 
 export interface InteractionCreateEvent {
   execute: (
     client: Client<true>,
-    interaction: BaseInteraction,
+    interaction: ClientEvents["interactionCreate"][0],
   ) => Promise<void> | void;
 }
 
@@ -17,7 +17,7 @@ export const loadInteractionCreateEvents = async (
   });
   console.log(`Loaded (${events.length}) interaction-create events`);
   events.forEach(({ data }) => {
-    client.on(Events.InteractionCreate, async (interaction: BaseInteraction) =>
+    client.on(Events.InteractionCreate, async (interaction) =>
       data.execute(client, interaction),
     );
   });

@@ -1,4 +1,3 @@
-import type { Client, CommandInteraction } from "discord.js";
 import ANONY_CONSTANTS from "../../constants/anony";
 import { EmbedBuilder } from "discord.js";
 import type { SlashCommand } from "../../handlers/slashCommands.handler";
@@ -21,7 +20,7 @@ const slashCommand: SlashCommand = {
     },
   ],
 
-  async execute(client: Client, interaction: CommandInteraction) {
+  async execute(client, interaction) {
     const channel = client.channels.cache.get(
       process.env.ANONYMOUS_APPROVAL_CHANNEL_ID,
     );

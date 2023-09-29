@@ -94,11 +94,7 @@ const handleReaction = async ({
 };
 
 const event: MessageReactionAddEvent = {
-  execute: async (
-    client: Client,
-    reaction: MessageReaction | PartialMessageReaction,
-    user: PartialUser | User,
-  ) => {
+  execute: async (client, reaction, user) => {
     try {
       await reaction.fetch();
     } catch (error) {
