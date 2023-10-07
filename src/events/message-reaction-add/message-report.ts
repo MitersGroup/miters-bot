@@ -28,25 +28,23 @@ const event: MessageReactionAddEvent = {
     )
       return;
 
-    const embed = new EmbedBuilder()
-      .setTitle("Message Report")
-      .addFields(
-        {
-          name: "Message",
-          value: reaction.message.content ?? "No content",
-          inline: true,
-        },
-        {
-          name: "Author",
-          value: reaction.message.author?.toString() ?? "No author",
-          inline: true,
-        },
-        {
-          name: "Link",
-          value: `[Jump to message](${reaction.message.url})`,
-          inline: true,
-        },
-      );
+    const embed = new EmbedBuilder().setTitle("Message Report").addFields(
+      {
+        name: "Message",
+        value: reaction.message.content ?? "No content",
+        inline: true,
+      },
+      {
+        name: "Author",
+        value: reaction.message.author?.toString() ?? "No author",
+        inline: true,
+      },
+      {
+        name: "Link",
+        value: `[Jump to message](${reaction.message.url})`,
+        inline: true,
+      },
+    );
 
     const channel = client.channels.cache.get(reportChannelId);
 
