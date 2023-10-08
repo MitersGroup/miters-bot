@@ -6,7 +6,7 @@ const reportEmojiAmount = Number(process.env.REPORT_EMOJI_AMOUNT);
 const reportChannelId = process.env.REPORT_CHANNEL_ID;
 
 const generateEmbedMessage = (
-  message: Message | PartialMessage
+  message: Message | PartialMessage,
 ): EmbedBuilder =>
   new EmbedBuilder().setTitle("Message Report").addFields(
     {
@@ -23,7 +23,7 @@ const generateEmbedMessage = (
       name: "Link",
       value: `[Jump to message](${message.url})`,
       inline: true,
-    }
+    },
   );
 
 const event: MessageReactionAddEvent = {
@@ -38,7 +38,7 @@ const event: MessageReactionAddEvent = {
       } catch (error) {
         console.error(
           "Something went wrong when fetching the message: ",
-          error
+          error,
         );
         return;
       }
