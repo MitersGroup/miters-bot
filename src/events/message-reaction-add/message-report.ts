@@ -1,7 +1,7 @@
 import {
   EmbedBuilder,
   type Message,
-  MessageReaction,
+  type MessageReaction,
   type PartialMessage,
 } from "discord.js";
 import type { MessageReactionAddEvent } from "../../handlers/messageReactionAddEvents.handler";
@@ -26,11 +26,11 @@ const generateEmbedMessage = (reaction: MessageReaction): EmbedBuilder =>
       name: "Link",
       value: `[Jump to message](${reaction.message.url})`,
       inline: true,
-    }
+    },
   );
 
 const deleteMessage = async (
-  message: Message | PartialMessage
+  message: Message | PartialMessage,
 ): Promise<void> => {
   try {
     if (message.deletable) {
@@ -53,7 +53,7 @@ const event: MessageReactionAddEvent = {
       } catch (error) {
         console.error(
           "Something went wrong when fetching the message: ",
-          error
+          error,
         );
         return;
       }
