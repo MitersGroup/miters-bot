@@ -13,6 +13,9 @@ declare global {
       PREFIX: string;
       FEEDBACK_CHANNEL_ID: string;
       ROLE_SELECTION_MESSAGE_ID: string;
+      REPORT_EMOJIS: string;
+      REPORT_EMOJI_AMOUNT: string;
+      REPORT_CHANNEL_ID: string;
     }
   }
 }
