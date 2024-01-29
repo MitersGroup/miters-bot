@@ -1,9 +1,4 @@
-import {
-  EmbedBuilder,
-  type Message,
-  type MessageReaction,
-  type PartialMessage,
-} from "discord.js";
+import { EmbedBuilder, type MessageReaction } from "discord.js";
 import type { MessageReactionAddEvent } from "../../handlers/messageReactionAddEvents.handler";
 
 const reportEmojis = process.env.REPORT_EMOJIS.split(",");
@@ -28,18 +23,6 @@ const generateEmbedMessage = (reaction: MessageReaction): EmbedBuilder =>
       inline: true,
     },
   );
-
-const deleteMessage = async (
-  message: Message | PartialMessage,
-): Promise<void> => {
-  try {
-    if (message.deletable) {
-      await message.delete();
-    }
-  } catch (error) {
-    console.error("Error while deleting message: ", error);
-  }
-};
 
 const event: MessageReactionAddEvent = {
   execute: async (client, reaction) => {
@@ -81,7 +64,6 @@ const event: MessageReactionAddEvent = {
     }
 
     await channel.send({ embeds: [embed] });
-    await deleteMessage(reaction.message);
   },
 };
 
